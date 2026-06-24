@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VV渠道活跃度LMDI-I分解报告</title>
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; background: linear-gradient(135deg, #0C6B5A 0%, #094f43 100%); color: #333; min-height: 100vh; padding: 20px; }
+.container { max-width: 1400px; margin: 0 auto; }
+.header { background: white; color: #333; padding: 40px; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); position: relative; }
+.header h1 { font-size: 36px; margin-bottom: 12px; background: linear-gradient(135deg, #0C6B5A 0%, #094f43 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+.header .meta { color: #666; font-size: 14px; }
+.version-badge { position: absolute; top: 20px; right: 20px; background: #E3F2FD; color: #2C6CAE; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; border: 2px solid #90CAF9; }
+.tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tab { padding: 14px 24px; background: rgba(255,255,255,0.9); border: none; cursor: pointer; font-size: 14px; color: #666; border-radius: 10px; transition: all 0.3s; font-weight: 600; }
+.tab:hover { transform: translateY(-2px); background: white; }
+.tab.active { background: white; color: #0C6B5A; box-shadow: 0 4px 16px rgba(12,107,90,0.3); }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.card h2 { font-size: 20px; margin-bottom: 20px; color: #333; border-left: 5px solid #0C6B5A; padding-left: 14px; }
+.card h3 { font-size: 16px; margin: 24px 0 14px; color: #555; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 24px; }
+.metric-card { background: linear-gradient(135deg, #0C6B5A 0%, #094f43 100%); color: white; padding: 24px; border-radius: 14px; box-shadow: 0 6px 20px rgba(12,107,90,0.4); }
+.metric-card.highlight { background: linear-gradient(135deg, #BC7314 0%, #9A5A10 100%); box-shadow: 0 6px 20px rgba(188,115,20,0.4); }
+.metric-card .label { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
+.metric-card .value { font-size: 32px; font-weight: 800; }
+.metric-card .change { font-size: 13px; margin-top: 10px; font-weight: 600; }
+.metric-card .change.up { color: #90EE90; }
+.metric-card .change.down { color: #FFB6C1; }
+.metric-card .change.highlight { color: #FFD700; }
+.metric-card .change.neutral { color: #FFF; opacity: 0.8; }
+.insight-box { background: #f8f9fb; border-radius: 12px; padding: 24px; border-left: 4px solid #0C6B5A; }
+.insight-box.intensity { border-left-color: #BC7314; }
+.insight-box.scale { border-left-color: #0C6B5A; }
+.insight-box h3 { margin-bottom: 12px; color: #333; }
+.insight-box p { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 14px 10px; text-align: left; border-bottom: 1px solid #e8eef5; }
+th { background: linear-gradient(135deg, #f8f9fb 0%, #e8eef5 100%); font-weight: 700; color: #555; font-size: 11px; text-transform: uppercase; }
+tr:hover { background: #f8f9fb; }
+.pos { color: #0C6B5A; font-weight: 600; }
+.neg { color: #AE3E2D; font-weight: 600; }
+.decomposition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.dec-item { background: #f8f9fb; padding: 20px; border-radius: 10px; text-align: center; }
+.dec-item.highlight { border: 2px solid #BC7314; }
+.dec-label { font-size: 12px; color: #666; margin-bottom: 8px; }
+.dec-value { font-size: 22px; font-weight: 700; font-family: monospace; color: #333; }
+.dec-pct { font-size: 14px; color: #999; margin-top: 4px; }
+.dec-pct.highlight { color: #BC7314; font-weight: 700; }
+.chart-box { background: #f8f9fb; border-radius: 12px; padding: 24px; margin: 20px 0; }
+.pie-svg { width: 100%; max-width: 400px; margin: 0 auto; }
+.legend { text-align: center; margin-top: 16px; }
+.legend-item { display: inline-block; margin: 0 16px; font-size: 13px; color: #666; font-weight: 600; }
+.legend-item.scale { color: #0C6B5A; }
+.legend-item.intensity { color: #BC7314; }
+.footer { text-align: center; padding: 24px; color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 30px; }
+  
+</style>
+</head>
+<body>
+<div class="container">
+<header class="header">
+<h1>VV渠道活跃度LMDI-I分解报告</h1>
+<div class="meta">数据期间：2026-06-17 ~ 2026-06-23 | 生成时间：2026/6/24 14:50:24</div>
+<div class="version-badge">v5.3</div>
+</header>
+
+<div class="tabs">
+<button class="tab active" onclick="showTab('overview')">概览</button>
+<button class="tab" onclick="showTab('decompose')">分解结果</button>
+<button class="tab" onclick="showTab('data')">数据表</button>
+<button class="tab" onclick="showTab('chart')">图表</button>
+</div>
+
+<div id="overview" class="tab-content active">
+<div class="metrics-grid">
+<div class="metric-card"><div class="label">总时长变化</div><div class="value">-6.44%</div><div class="change down">-1768小时</div></div>
+<div class="metric-card"><div class="label">规模效应(进房)</div><div class="value">156.1%</div><div class="change neutral">贡献占比</div></div>
+<div class="metric-card "><div class="label">强度效应(人均)</div><div class="value">56.1%</div><div class="change neutral">主导因素</div></div>
+<div class="metric-card"><div class="label">进房人数变化</div><div class="value">-9.87%</div><div class="change down">-1125</div></div>
+</div>
+
+<div class="card">
+<h2>核心发现</h2>
+<div class="insight-box scale">
+<h3>规模效应主导</h3><p>总时长变化主要原因是<strong>进房人数变化</strong>（贡献156.1%）</p><p>进房人数从11,400变为10,275</p>
+</div>
+</div>
+</div>
+
+<div id="decompose" class="tab-content">
+<div class="card">
+<h2>LMDI-I分解结果</h2>
+<table>
+<thead><tr><th>指标</th><th>上期(2026-06-17)</th><th>本期(2026-06-23)</th><th>变化</th></tr></thead>
+<tbody>
+<tr><td>进房人数</td><td>11,400</td><td>10,275</td><td class="neg">-1125</td></tr>
+<tr><td>人均时长(分钟)</td><td>144.50</td><td>150.00</td><td class="pos">+5.50</td></tr>
+<tr><td>总时长(分钟)</td><td>1,647,300</td><td>1,541,250</td><td class="neg">-106,050</td></tr>
+</tbody>
+</table>
+
+<h3>分解贡献</h3>
+<div class="decomposition-grid">
+<div class="dec-item"><div class="dec-label">总时长变化</div><div class="dec-value">-1768小时</div><div class="dec-pct">-6.44%</div></div>
+<div class="dec-item"><div class="dec-label">规模效应(进房)</div><div class="dec-value">-2760小时</div><div class="dec-pct">156.1%</div></div>
+<div class="dec-item "><div class="dec-label">强度效应(人均)</div><div class="dec-value">+992小时</div><div class="dec-pct ">56.1%</div></div>
+</div>
+</div>
+</div>
+
+<div id="data" class="tab-content">
+<div class="card">
+<h2>每日数据</h2>
+<table>
+<thead><tr><th>日期</th><th>DAU</th><th>进房人数</th><th>人均时长(分钟)</th><th>总时长(小时)</th></tr></thead>
+<tbody>
+<tr><td>2026-06-17</td><td>16,986</td><td>11,400</td><td>144.50</td><td>27455</td></tr><tr><td>2026-06-18</td><td>16,459</td><td>10,995</td><td>146.20</td><td>26791</td></tr><tr><td>2026-06-19</td><td>15,226</td><td>9,731</td><td>151.90</td><td>24636</td></tr><tr><td>2026-06-20</td><td>14,546</td><td>9,485</td><td>155.60</td><td>24598</td></tr><tr><td>2026-06-21</td><td>15,175</td><td>9,870</td><td>152.00</td><td>25004</td></tr><tr><td>2026-06-22</td><td>15,637</td><td>10,252</td><td>148.50</td><td>25374</td></tr><tr><td>2026-06-23</td><td>15,854</td><td>10,275</td><td>150.00</td><td>25688</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="chart" class="tab-content">
+<div class="card">
+<h2>分解贡献对比图</h2>
+<div class="chart-box">
+<svg viewBox="0 0 400 250" class="pie-svg">
+
+<rect x="50" y="-34.20570012494292" width="120" height="234.20570012494292" fill="#0C6B5A" rx="4"/>
+<text x="110" y="230" text-anchor="middle" font-size="12" fill="#666">规模效应</text>
+<text x="110" y="-44.20570012494292" text-anchor="middle" font-size="14" fill="#0C6B5A" font-weight="700">156.1%</text>
+
+<rect x="230" y="115.79429987505881" width="120" height="84.20570012494119" fill="#BC7314" rx="4"/>
+<text x="290" y="230" text-anchor="middle" font-size="12" fill="#666">强度效应</text>
+<text x="290" y="105.79429987505881" text-anchor="middle" font-size="14" fill="#BC7314" font-weight="700">56.1%</text>
+
+</svg>
+</div>
+<div class="legend">
+<span class="legend-item scale">规模效应: 156.1%</span>
+<span class="legend-item intensity">强度效应: 56.1%</span>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+<p>Powered by OpenClaw vv-active-decomposition v5.3 | LMDI-I模型 | 数据新鲜度检查</p>
+</footer>
+</div>
+
+<script>
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

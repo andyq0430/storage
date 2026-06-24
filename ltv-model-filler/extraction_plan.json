@@ -1,0 +1,50 @@
+{
+  "steps": [
+    {
+      "step": 1,
+      "action": "start",
+      "params": {
+        "profile": "user",
+        "url": "https://allcmsweb-pro.vvyyds.com/#/dataCenter/productData"
+      }
+    },
+    {
+      "step": 2,
+      "action": "wait",
+      "duration": 3000
+    },
+    {
+      "step": 3,
+      "action": "snapshot"
+    },
+    {
+      "step": 4,
+      "action": "click",
+      "selector": "button:contains(\"vv\")"
+    },
+    {
+      "step": 5,
+      "action": "wait",
+      "duration": 2000
+    },
+    {
+      "step": 6,
+      "action": "click",
+      "selector": "h3:contains(\"新增\")"
+    },
+    {
+      "step": 7,
+      "action": "wait",
+      "duration": 3000
+    },
+    {
+      "step": 8,
+      "action": "evaluate",
+      "fn": "(() => {\n        const tables = document.querySelectorAll('.el-table');\n        const result = { ltvData: [], qualityData: [] };\n        \n        // 渠道LTV表格\n        const table1 = tables[1];\n        if (table1) {\n          const rows = Array.from(table1.querySelectorAll('.el-table__body tr'));\n          result.ltvData = rows.slice(0, 8).map(tr => {\n            const tds = tr.querySelectorAll('td');\n            return {\n              date: tds[0]?.textContent.trim(),\n              newUsers: parseInt(tds[1]?.textContent.replace(/[^0-9]/g, '')),\n              ltv1: parseFloat(tds[2]?.textContent.replace(/[^0-9.]/g, '')),\n              ltv3: parseFloat(tds[3]?.textContent.replace(/[^0-9.]/g, '')),\n              ltv7: parseFloat(tds[4]?.textContent.replace(/[^0-9.]/g, '')),\n              ltv15: parseFloat(tds[5]?.textContent.replace(/[^0-9.]/g, '')),\n              ltv30: parseFloat(tds[6]?.textContent.replace(/[^0-9.]/g, '')),\n              ltv60: parseFloat(tds[7]?.textContent.replace(/[^0-9.]/g, ''))\n            };\n          }).filter(r => r.date && r.newUsers > 0);\n        }\n        \n        // 用户质量表格\n        const table2 = tables[2];\n        if (table2) {\n          const rows = Array.from(table2.querySelectorAll('.el-table__body tr'));\n          result.qualityData = rows.slice(0, 8).map(tr => {\n            const tds = tr.querySelectorAll('td');\n            return {\n              date: tds[0]?.textContent.trim(),\n              newUsers: parseInt(tds[1]?.textContent.replace(/[^0-9]/g, '')),\n              payRateD0: parseFloat(tds[2]?.textContent.replace(/[^0-9.]/g, '')),\n              payAmountD0: parseFloat(tds[3]?.textContent.replace(/[^0-9.]/g, '')),\n              payAmountD7: parseFloat(tds[4]?.textContent.replace(/[^0-9.]/g, ''))\n            };\n          }).filter(r => r.date && r.newUsers > 0);\n        }\n        \n        return result;\n      })()"
+    },
+    {
+      "step": 9,
+      "action": "stop"
+    }
+  ]
+}

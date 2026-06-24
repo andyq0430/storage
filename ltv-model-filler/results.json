@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "generatedAt": "2026-06-24T06:50:17.368Z",
+    "model": "LTV three-factor LMDI-I + curve health",
+    "cac": null
+  },
+  "summary": {
+    "batches": 7,
+    "dateRange": "2026-06-17 → 2026-06-23",
+    "avgNewUsers": 1480,
+    "avgPayRateD0": 0.1676,
+    "avgArppuD0": 177.5,
+    "avgLtvD0": 31.27,
+    "avgLtvD60": 35.66,
+    "avgRecycleMult": 1.21,
+    "bestLtvD0": {
+      "batch": "C5 VV·2026-06-19",
+      "date": "2026-06-19",
+      "newUsers": 1191,
+      "payRateD0": 0.1956,
+      "payAmountD0": 85223.22,
+      "ltvD0": 71.56,
+      "arppuD0": 365.83,
+      "ltvD1": 71.56,
+      "ltvD7": 73.93,
+      "ltvD30": 73.93,
+      "ltvD60": 73.93,
+      "recycleMult": 1.03,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    "worstLtvD0": {
+      "batch": "C4 VV·2026-06-20",
+      "date": "2026-06-20",
+      "newUsers": 875,
+      "payRateD0": 0.1417,
+      "payAmountD0": 8449.38,
+      "ltvD0": 9.66,
+      "arppuD0": 68.15,
+      "ltvD1": 9.66,
+      "ltvD7": 15.09,
+      "ltvD30": 15.09,
+      "ltvD60": 15.09,
+      "recycleMult": 1.56,
+      "ltvCac": null,
+      "paybackDay": null
+    }
+  },
+  "rows": [
+    {
+      "batch": "C7 VV·2026-06-17",
+      "date": "2026-06-17",
+      "newUsers": 2293,
+      "payRateD0": 0.2037,
+      "payAmountD0": 91356.18,
+      "ltvD0": 39.84,
+      "arppuD0": 195.59,
+      "ltvD1": 39.84,
+      "ltvD7": 42.52,
+      "ltvD30": 42.52,
+      "ltvD60": 42.52,
+      "recycleMult": 1.07,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C6 VV·2026-06-18",
+      "date": "2026-06-18",
+      "newUsers": 1705,
+      "payRateD0": 0.2053,
+      "payAmountD0": 64912.44,
+      "ltvD0": 38.07,
+      "arppuD0": 185.44,
+      "ltvD1": 38.07,
+      "ltvD7": 46.22,
+      "ltvD30": 46.22,
+      "ltvD60": 46.22,
+      "recycleMult": 1.21,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C5 VV·2026-06-19",
+      "date": "2026-06-19",
+      "newUsers": 1191,
+      "payRateD0": 0.1956,
+      "payAmountD0": 85223.22,
+      "ltvD0": 71.56,
+      "arppuD0": 365.83,
+      "ltvD1": 71.56,
+      "ltvD7": 73.93,
+      "ltvD30": 73.93,
+      "ltvD60": 73.93,
+      "recycleMult": 1.03,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C4 VV·2026-06-20",
+      "date": "2026-06-20",
+      "newUsers": 875,
+      "payRateD0": 0.1417,
+      "payAmountD0": 8449.38,
+      "ltvD0": 9.66,
+      "arppuD0": 68.15,
+      "ltvD1": 9.66,
+      "ltvD7": 15.09,
+      "ltvD30": 15.09,
+      "ltvD60": 15.09,
+      "recycleMult": 1.56,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C3 VV·2026-06-21",
+      "date": "2026-06-21",
+      "newUsers": 1294,
+      "payRateD0": 0.1314,
+      "payAmountD0": 30733.9,
+      "ltvD0": 23.75,
+      "arppuD0": 180.75,
+      "ltvD1": 23.75,
+      "ltvD7": 29.46,
+      "ltvD30": 29.46,
+      "ltvD60": 29.46,
+      "recycleMult": 1.24,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C2 VV·2026-06-22",
+      "date": "2026-06-22",
+      "newUsers": 1408,
+      "payRateD0": 0.1598,
+      "payAmountD0": 23725.32,
+      "ltvD0": 16.85,
+      "arppuD0": 105.45,
+      "ltvD1": 16.85,
+      "ltvD7": 23.25,
+      "ltvD30": 23.25,
+      "ltvD60": 23.25,
+      "recycleMult": 1.38,
+      "ltvCac": null,
+      "paybackDay": null
+    },
+    {
+      "batch": "C1 VV·2026-06-23",
+      "date": "2026-06-23",
+      "newUsers": 1592,
+      "payRateD0": 0.1357,
+      "payAmountD0": 30516.34,
+      "ltvD0": 19.17,
+      "arppuD0": 141.26,
+      "ltvD1": 19.17,
+      "ltvD7": 19.17,
+      "ltvD30": 19.17,
+      "ltvD60": 19.17,
+      "recycleMult": 1,
+      "ltvCac": null,
+      "paybackDay": null
+    }
+  ],
+  "decomposition": {
+    "from": "C7 VV·2026-06-17",
+    "to": "C1 VV·2026-06-23",
+    "V0": 91356.18,
+    "V1": 30516.34,
+    "dV": -60840,
+    "dVpct": -66.6,
+    "factors": [
+      {
+        "key": "scale",
+        "name": "新增用户 (规模)",
+        "add": -20245,
+        "pct": 33.3,
+        "mul": 0.6943
+      },
+      {
+        "key": "conversion",
+        "name": "付费率 (转化)",
+        "add": -22538,
+        "pct": 37,
+        "mul": 0.6662
+      },
+      {
+        "key": "arppu",
+        "name": "客单价 (深度)",
+        "add": -18056,
+        "pct": 29.7,
+        "mul": 0.7222
+      }
+    ]
+  },
+  "diagnosis": {
+    "dominantKey": "conversion",
+    "dominantName": "付费率 (转化)",
+    "direction": "down",
+    "directionLabel": "恶化",
+    "share": 37,
+    "flow": "🔵 提转化·促首充",
+    "primary": {
+      "title": "优先:救转化 · 排查首充入口与新手付费引导",
+      "actions": [
+        "排查首充入口/新手引导/付费点近期改动",
+        "上首充礼包/限时优惠，降低首次付费门槛",
+        "优化定价档位结构与最低档位",
+        "拆 新增→付费 漏斗，定位转化掉点环节"
+      ],
+      "kpi": "付费率D0、首充率、转化效应、新增→付费漏斗"
+    },
+    "curveHealth": "weak",
+    "curveMult": 1,
+    "curve": {
+      "title": "回本偏弱 · 优先做 D1–D30 留存与复购",
+      "actions": [
+        "优化 D1/D3/D7 留存，做新手生命周期营销",
+        "上复购触达/召回，延长 LTV 长尾",
+        "排查中后期付费供给是否断档",
+        "将 LTV_D7/D30 纳入投放回收口径"
+      ],
+      "kpi": "LTV_D7/D30/D60、回本倍数、次留/7留、复购率"
+    }
+  },
+  "gantt": [
+    {
+      "flow": "🟢 扩规模·稳获量",
+      "star": "",
+      "task": "投放漏斗诊断(曝光→新增)",
+      "s": 1,
+      "e": 2
+    },
+    {
+      "flow": "🟢 扩规模·稳获量",
+      "star": "",
+      "task": "渠道/素材优化与淘汰",
+      "s": 2,
+      "e": 5
+    },
+    {
+      "flow": "🟢 扩规模·稳获量",
+      "star": "",
+      "task": "高 ROI 渠道复制放量",
+      "s": 3,
+      "e": 6
+    },
+    {
+      "flow": "🔵 提转化·促首充",
+      "star": "★",
+      "task": "首充漏斗诊断(新增→付费)",
+      "s": 1,
+      "e": 2
+    },
+    {
+      "flow": "🔵 提转化·促首充",
+      "star": "★",
+      "task": "首充礼包/定价档位实验",
+      "s": 2,
+      "e": 5
+    },
+    {
+      "flow": "🟠 提客单·做付费深度",
+      "star": "",
+      "task": "客单结构诊断(次数×单次)",
+      "s": 1,
+      "e": 2
+    },
+    {
+      "flow": "🟠 提客单·做付费深度",
+      "star": "",
+      "task": "高价值档位/付费深度运营",
+      "s": 2,
+      "e": 6
+    },
+    {
+      "flow": "🟣 拉曲线·促复购留存",
+      "star": "★",
+      "task": "D1–D30 留存与复购优化",
+      "s": 1,
+      "e": 4
+    },
+    {
+      "flow": "🟣 拉曲线·促复购留存",
+      "star": "",
+      "task": "中长期付费供给抬尾部",
+      "s": 3,
+      "e": 6
+    },
+    {
+      "flow": "🟤 控成本·保ROI",
+      "star": "",
+      "task": "LTV/CAC 与回本周期监控",
+      "s": 1,
+      "e": 6
+    },
+    {
+      "flow": "⚪ 横向",
+      "star": "",
+      "task": "LTV 日报看板",
+      "s": 1,
+      "e": 2
+    },
+    {
+      "flow": "⚪ 横向",
+      "star": "",
+      "task": "A/B & holdout 框架",
+      "s": 1,
+      "e": 4
+    },
+    {
+      "flow": "⚪ 横向",
+      "star": "",
+      "task": "周复盘",
+      "s": 1,
+      "e": 6
+    }
+  ],
+  "kpiBaseline": [
+    {
+      "kpi": "新增用户",
+      "baseline": 1592,
+      "target": "稳健/↑"
+    },
+    {
+      "kpi": "付费率D0",
+      "baseline": "13.57%",
+      "target": "↑ 优先回升"
+    },
+    {
+      "kpi": "客单价 ARPPU",
+      "baseline": 141.26,
+      "target": "↑/守住"
+    },
+    {
+      "kpi": "LTV_D0",
+      "baseline": 19.17,
+      "target": "↑"
+    },
+    {
+      "kpi": "LTV_D7",
+      "baseline": 19.17,
+      "target": "↑"
+    },
+    {
+      "kpi": "LTV_D30",
+      "baseline": 19.17,
+      "target": "↑"
+    },
+    {
+      "kpi": "LTV_D60",
+      "baseline": 19.17,
+      "target": "↑"
+    },
+    {
+      "kpi": "回本倍数(D60/D0)",
+      "baseline": 1,
+      "target": "↑ 优先拉升"
+    }
+  ]
+}

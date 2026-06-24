@@ -1,0 +1,23 @@
+{
+  "name": "vv-active-decomposition",
+  "version": "1.0.0",
+  "description": "VV渠道活跃度LMDI-I分解模型，分析总使用时长变化的贡献因素",
+  "main": "scripts/run-decomposition.js",
+  "scripts": {
+    "start": "node scripts/run-decomposition.js",
+    "test": "node scripts/run-decomposition.js --startDate 2026-06-09 --endDate 2026-06-15"
+  },
+  "keywords": [
+    "vv-channel",
+    "active-analysis",
+    "lmdi",
+    "decomposition",
+    "data-analysis"
+  ],
+  "author": "OpenClaw Agent",
+  "license": "MIT",
+  "dependencies": {},
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

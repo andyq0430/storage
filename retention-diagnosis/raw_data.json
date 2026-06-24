@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "extractedAt": "2026-06-24T10:55:00.000Z",
+    "method": "browser-tool",
+    "status": "success"
+  },
+  "days": [
+    {
+      "date": "2026-06-23",
+      "newUsers": 1592,
+      "oldUsers": 14335,
+      "newRetain1": 0,
+      "oldRetain1": 0
+    },
+    {
+      "date": "2026-06-22",
+      "newUsers": 1408,
+      "oldUsers": 14295,
+      "newRetain1": 33.03,
+      "oldRetain1": 71.69
+    },
+    {
+      "date": "2026-06-21",
+      "newUsers": 1294,
+      "oldUsers": 13936,
+      "newRetain1": 33.08,
+      "oldRetain1": 70.66
+    },
+    {
+      "date": "2026-06-20",
+      "newUsers": 875,
+      "oldUsers": 13718,
+      "newRetain1": 30.51,
+      "oldRetain1": 70.54
+    },
+    {
+      "date": "2026-06-19",
+      "newUsers": 1191,
+      "oldUsers": 14068,
+      "newRetain1": 22.17,
+      "oldRetain1": 69.2
+    },
+    {
+      "date": "2026-06-18",
+      "newUsers": 1705,
+      "oldUsers": 14805,
+      "newRetain1": 25.63,
+      "oldRetain1": 66.38
+    },
+    {
+      "date": "2026-06-17",
+      "newUsers": 2293,
+      "oldUsers": 14742,
+      "newRetain1": 21.11,
+      "oldRetain1": 69.84
+    }
+  ]
+}

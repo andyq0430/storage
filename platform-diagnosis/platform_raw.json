@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "extractedAt": "2026-06-24T10:47:00.000Z",
+    "platform": "all",
+    "dateRange": {
+      "yesterday": "2026-06-23",
+      "today": "2026-06-24",
+      "lastWeek": "2026-06-17 ~ 2026-06-23"
+    }
+  },
+  "kpiSummary": {
+    "营收": { "value": "1650276.09", "change": "▼ 9.61%" },
+    "新增": { "value": "2929", "change": "▲ 5.82%" },
+    "活跃": { "value": "25423", "change": "▲ 1.18%" },
+    "留存": { "value": "36.93", "change": "▼ 0.65%" }
+  },
+  "platforms": [
+    { 
+      "platform": "vv", 
+      "revenue": { "yesterday": 1352965.8, "yesterdayRevenue": 1330566.12, "share": 80.63, "trend": "▼ 11.81%", "lastWeek": 8851621.15, "lastWeekRevenue": 9103956.95, "lastMonth": 38109584.72, "lastMonthRevenue": 39274899.78 },
+      "acquisition": { "yesterday": 1408, "trend": "+8.81%", "lastWeek": 11850, "lastMonth": 62963 },
+      "active": { "yesterday": 15637, "trend": "+3.04%", "lastWeek": 112385, "lastMonth": 493301 }
+    },
+    { 
+      "platform": "觅光", 
+      "revenue": { "yesterday": 140784.2, "yesterdayRevenue": 150300.96, "share": 9.11, "trend": "▼ 5.27%", "lastWeek": 1334152.8, "lastWeekRevenue": 1485496.9, "lastMonth": 4713850.4, "lastMonthRevenue": 5059785.13 },
+      "acquisition": { "yesterday": 489, "trend": "-7.91%", "lastWeek": 3344, "lastMonth": 14570 },
+      "active": { "yesterday": 4053, "trend": "-0.71%", "lastWeek": 27926, "lastMonth": 126435 }
+    },
+    { 
+      "platform": "萤火", 
+      "revenue": { "yesterday": 62839, "yesterdayRevenue": 69010.45, "share": 4.18, "trend": "▼ 14.03%", "lastWeek": 646135, "lastWeekRevenue": 694944.22, "lastMonth": 2567715, "lastMonthRevenue": 2837835.1 },
+      "acquisition": { "yesterday": 341, "trend": "-10.26%", "lastWeek": 2259, "lastMonth": 10202 },
+      "active": { "yesterday": 3166, "trend": "-1.34%", "lastWeek": 21474, "lastMonth": 93243 }
+    },
+    { 
+      "platform": "可乐语音", 
+      "revenue": { "yesterday": 48453, "yesterdayRevenue": 55292.86, "share": 3.35, "trend": "▲ 63.74%", "lastWeek": 250898, "lastWeekRevenue": 272283.42, "lastMonth": 1246448, "lastMonthRevenue": 1266338.49 },
+      "acquisition": { "yesterday": 99, "trend": "+22.22%", "lastWeek": 588, "lastMonth": 2662 },
+      "active": { "yesterday": 780, "trend": "+1.56%", "lastWeek": 5519, "lastMonth": 24917 }
+    },
+    { 
+      "platform": "椰奶", 
+      "revenue": { "yesterday": 39071, "yesterdayRevenue": 41339.4, "share": 2.5, "trend": "▲ 1.52%", "lastWeek": 284920, "lastWeekRevenue": 313998.86, "lastMonth": 1347481.63, "lastMonthRevenue": 3228442.44 },
+      "acquisition": { "yesterday": 178, "trend": "+27.14%", "lastWeek": 986, "lastMonth": 4658 },
+      "active": { "yesterday": 1058, "trend": "-1.31%", "lastWeek": 7194, "lastMonth": 28160 }
+    },
+    { 
+      "platform": "青鸾直播", 
+      "revenue": { "yesterday": 3579, "yesterdayRevenue": 3766.3, "share": 0.23, "trend": "▲ 5.43%", "lastWeek": 969, "lastWeekRevenue": 36474.2, "lastMonth": 285997, "lastMonthRevenue": 310990.68 },
+      "acquisition": { "yesterday": 253, "trend": "+163.54%", "lastWeek": 415, "lastMonth": 2095 },
+      "active": { "yesterday": 526, "trend": "+87.19%", "lastWeek": 1409, "lastMonth": 17973 }
+    }
+  ],
+  "totals": {
+    "revenueYesterday": 1650276.09,
+    "revenueToday": 354484.13,
+    "newUsersYesterday": 2929,
+    "dauYesterday": 25423,
+    "avgRetention": 36.93
+  },
+  "hhi": 6619
+}

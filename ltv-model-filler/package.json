@@ -1,0 +1,18 @@
+{
+  "name": "ltv-model-filler",
+  "version": "1.0.0",
+  "description": "从总控管理系统提取VV渠道LTV和用户质量数据，填充到Excel经营模型",
+  "main": "scripts/fill-model.mjs",
+  "type": "module",
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  },
+  "keywords": [
+    "ltv",
+    "excel",
+    "data-extraction",
+    "vv-channel"
+  ],
+  "author": "OpenClaw Agent",
+  "license": "MIT"
+}

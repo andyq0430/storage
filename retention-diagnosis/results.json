@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-06-24T02:26:19.211Z",
+  "summary": {
+    "startDate": "2026-06-21",
+    "endDate": "2026-06-16",
+    "days": 6,
+    "startRetention": "67.5",
+    "endRetention": "65.1"
+  },
+  "dailyData": [
+    {
+      "date": "2026-06-21",
+      "newUsers": 1294,
+      "oldUsers": 13936,
+      "activeUsers": 15230,
+      "newRetention": 33.08,
+      "oldRetention": 70.66,
+      "activeRetention": 67.46705712409717,
+      "newRatio": 0.08496388706500328
+    },
+    {
+      "date": "2026-06-20",
+      "newUsers": 875,
+      "oldUsers": 13718,
+      "activeUsers": 14593,
+      "newRetention": 30.51,
+      "oldRetention": 70.54,
+      "activeRetention": 68.13979099568286,
+      "newRatio": 0.0599602549167409
+    },
+    {
+      "date": "2026-06-19",
+      "newUsers": 1191,
+      "oldUsers": 14068,
+      "activeUsers": 15259,
+      "newRetention": 22.17,
+      "oldRetention": 69.2,
+      "activeRetention": 65.52920047185268,
+      "newRatio": 0.0780522970050462
+    },
+    {
+      "date": "2026-06-18",
+      "newUsers": 1705,
+      "oldUsers": 14805,
+      "activeUsers": 16510,
+      "newRetention": 25.63,
+      "oldRetention": 66.38,
+      "activeRetention": 62.171717141126585,
+      "newRatio": 0.10327074500302846
+    },
+    {
+      "date": "2026-06-17",
+      "newUsers": 2293,
+      "oldUsers": 14742,
+      "activeUsers": 17035,
+      "newRetention": 21.11,
+      "oldRetention": 69.84,
+      "activeRetention": 63.28068740827708,
+      "newRatio": 0.13460522453771648
+    },
+    {
+      "date": "2026-06-16",
+      "newUsers": 2222,
+      "oldUsers": 14773,
+      "activeUsers": 16995,
+      "newRetention": 23.49,
+      "oldRetention": 71.35,
+      "activeRetention": 65.09257605177993,
+      "newRatio": 0.1307443365695793
+    }
+  ],
+  "decomposition": {
+    "baseline": "2026-06-21",
+    "comparison": "2026-06-16",
+    "mix": -1.9557408028354897,
+    "newR": -1.0343209323278235,
+    "oldR": 0.6155806628460669,
+    "dRa": -2.374481072317238,
+    "raA": 67.46705712409717,
+    "raB": 65.09257605177993
+  }
+}

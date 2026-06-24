@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "stamp": "2026-06-24T06:50:24.905Z",
+    "source": "vv/活跃",
+    "period": "2026-06-17 ~ 2026-06-23"
+  },
+  "periodA": {
+    "date": "2026-06-17",
+    "dau": 16986,
+    "jinFang": 11400,
+    "renJunShiChang": 144.5,
+    "totalShiChang": 1647300
+  },
+  "periodB": {
+    "date": "2026-06-23",
+    "dau": 15854,
+    "jinFang": 10275,
+    "renJunShiChang": 150,
+    "totalShiChang": 1541250
+  },
+  "decomposition": {
+    "deltaT": -106050,
+    "deltaPct": -6.437807321070843,
+    "guiMoEffect": -165583.42998833465,
+    "guiMoPct": 156.13713341662861,
+    "qiangDuEffect": 59533.42998833342,
+    "qiangDuPct": 56.137133416627464
+  },
+  "dailyData": [
+    {
+      "date": "2026-06-17",
+      "dau": 16986,
+      "jinFang": 11400,
+      "renJunShiChang": 144.5
+    },
+    {
+      "date": "2026-06-18",
+      "dau": 16459,
+      "jinFang": 10995,
+      "renJunShiChang": 146.2
+    },
+    {
+      "date": "2026-06-19",
+      "dau": 15226,
+      "jinFang": 9731,
+      "renJunShiChang": 151.9
+    },
+    {
+      "date": "2026-06-20",
+      "dau": 14546,
+      "jinFang": 9485,
+      "renJunShiChang": 155.6
+    },
+    {
+      "date": "2026-06-21",
+      "dau": 15175,
+      "jinFang": 9870,
+      "renJunShiChang": 152
+    },
+    {
+      "date": "2026-06-22",
+      "dau": 15637,
+      "jinFang": 10252,
+      "renJunShiChang": 148.5
+    },
+    {
+      "date": "2026-06-23",
+      "dau": 15854,
+      "jinFang": 10275,
+      "renJunShiChang": 150
+    }
+  ]
+}
