@@ -8,8 +8,7 @@ import path from 'path';
 
 // 读取数据
 const rawData = fs.readFileSync(path.join(path.dirname(import.meta.url.replace('file:///', '')), '..', 'raw_data.json'), 'utf-8');
-const parsed = JSON.parse(rawData);
-const data = parsed.days || parsed; // 支持两种格式
+const data = JSON.parse(rawData);
 
 // 读取模板
 const templatePath = path.join(path.dirname(import.meta.url.replace('file:///', '')), 'template.html');

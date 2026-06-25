@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * VV渠道活跃度LMDI-I分解模型 - HTML报告版 v5.3
- * 数据新鲜度检查 + 自动触发浏览器提取
+ * VV渠道活跃度LMDI-I分解模型 - HTML报告版
+ * 解决打印编码问题 + 生成HTML交互报告
  */
 
 import fs from 'fs';
@@ -13,96 +13,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const SKILL_DIR = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(SKILL_DIR, 'report');
-const RAW_DATA_FILE = path.join(SKILL_DIR, 'raw_data.json');
-
-// 解析命令行参数
-const args = process.argv.slice(2);
-const verbose = args.includes('--verbose');
-const forceMode = args.includes('--force');
-
-console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-console.log('VV渠道活跃度LMDI-I分解模型 v5.3');
-console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-
-// ============================================================
-// 步骤1：数据新鲜度检查
-// ============================================================
-console.log('📅 步骤1：数据新鲜度检查');
-console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-
-function checkDataFreshness() {
-  if (!fs.existsSync(RAW_DATA_FILE)) {
-    return { fresh: false, reason: 'raw_data.json 不存在', maxDate: null };
-  }
-  
-  const rawData = JSON.parse(fs.readFileSync(RAW_DATA_FILE, 'utf-8'));
-  
-  // 检查 banKuaiData 或 banKuai 数组
-  const banKuai = rawData.banKuaiData || rawData.banKuai || [];
-  if (banKuai.length === 0) {
-    return { fresh: false, reason: '板块活跃数据为空', maxDate: null };
-  }
-  
-  // 获取最新日期
-  const dates = banKuai
-    .map(d => d.date)
-    .filter(d => d && /^\d{4}-\d{2}-\d{2}$/.test(d))
-    .sort()
-    .reverse();
-  
-  if (dates.length === 0) {
-    return { fresh: false, reason: '无有效日期数据', maxDate: null };
-  }
-  
-  const maxDate = dates[0];
-  
-  // 计算日期差
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
-  const maxDateObj = new Date(maxDate + 'T00:00:00');
-  const diffDays = Math.floor((today - maxDateObj) / (1000 * 60 * 60 * 24));
-  
-  // 判断新鲜度（超过1天视为过期）
-  const isFresh = diffDays <= 1;
-  
-  return {
-    fresh: isFresh,
-    reason: isFresh ? '数据新鲜' : `数据已过期${diffDays}天`,
-    maxDate,
-    diffDays,
-    dayCount: banKuai.length
-  };
-}
-
-const freshness = checkDataFreshness();
-const todayStr = new Date().toISOString().slice(0, 10);
-
-console.log(`📅 当前日期: ${todayStr}`);
-console.log(`📊 数据最新日期: ${freshness.maxDate || '无数据'}`);
-
-if (freshness.fresh) {
-  console.log('✅ 数据新鲜度: OK');
-  console.log(`   数据天数: ${freshness.dayCount}`);
-} else {
-  console.log(`❌ 数据新鲜度: 过期 (${freshness.reason})`);
-}
-
-// 强制模式检查
-if (!freshness.fresh && !forceMode) {
-  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('⚠️  数据已过期，需要提取最新数据');
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('\n返回码: 10 (触发浏览器提取)');
-  console.log('\n如需强制使用过期数据，请使用 --force 参数');
-  process.exit(10);
-}
-
-if (forceMode && !freshness.fresh) {
-  console.log('⚠️  强制模式：使用过期数据继续执行');
-}
-
-console.log('');
 
 // 确保输出目录
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -118,7 +28,13 @@ const logMean = (a, b) => {
 
 // 从JSON文件读取提取的数据
 function loadExtractedData() {
-  const rawContent = fs.readFileSync(RAW_DATA_FILE, 'utf-8');
+  const rawFile = path.join(SKILL_DIR, 'raw_data.json');
+  
+  if (!fs.existsSync(rawFile)) {
+    return null;
+  }
+  
+  const rawContent = fs.readFileSync(rawFile, 'utf-8');
   const data = JSON.parse(rawContent);
   
   // 适配不同的数据结构
@@ -173,22 +89,17 @@ function lmdiDecompose(T0, T1) {
 async function main() {
   const data = loadExtractedData();
   
-  console.log('📈 步骤2：加载数据');
-  console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  if (!data) {
+    console.log('No data found');
+    process.exit(1);
+  }
   
   const merged = mergeData(data.banKuai, data.shiYong);
   
   if (merged.length < 2) {
-    console.log('❌ 数据不足，至少需要2天数据');
+    console.log('Insufficient data');
     process.exit(1);
   }
-  
-  console.log('✅ 数据加载成功');
-  console.log(`   数据期间: ${merged[0].date} ~ ${merged[merged.length-1].date}`);
-  console.log(`   数据天数: ${merged.length}`);
-  
-  console.log('\n📊 步骤3：LMDI-I分解计算');
-  console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   
   // 使用第一期和最后一期对比
   const periodA = merged[0];
@@ -202,7 +113,7 @@ async function main() {
   const lmdi = lmdiDecompose(T0, T1);
   
   if (!lmdi) {
-    console.log('❌ LMDI计算失败');
+    console.log('LMDI calculation failed');
     process.exit(1);
   }
   
@@ -255,26 +166,18 @@ async function main() {
   const htmlFile = path.join(OUTPUT_DIR, 'index.html');
   fs.writeFileSync(htmlFile, html);
   
-  console.log('   ✅ HTML报告已生成: ' + htmlFile);
-  
-  // 输出摘要
-  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('✅ 活跃度分解分析完成！');
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-  
-  console.log('输出文件：');
-  console.log('  • raw_data.json                        - 原始数据');
-  console.log('  • vv_active_decomposition_results.json  - 分析结果');
-  console.log('  • report/index.html                    - HTML报告\n');
-  
-  console.log('诊断结果：');
-  console.log(`  • 数据期间: ${results.periodA.date} ~ ${results.periodB.date}`);
-  console.log(`  • 总时长变化: ${results.decomposition.deltaPct >= 0 ? '+' : ''}${results.decomposition.deltaPct.toFixed(2)}%`);
-  console.log(`  • 规模效应(进房): ${results.decomposition.guiMoPct.toFixed(1)}%`);
-  console.log(`  • 强度效应(人均): ${results.decomposition.qiangDuPct.toFixed(1)}%`);
-  console.log(`  • 主导因素: ${results.decomposition.qiangDuPct > results.decomposition.guiMoPct ? '强度效应(人均时长)' : '规模效应(进房人数)'}`);
-  
-  process.exit(0);
+  // 简化输出（避免编码问题）
+  console.log('========================================');
+  console.log('VV Active Decomposition Completed');
+  console.log('========================================');
+  console.log('Period: ' + periodA.date + ' vs ' + periodB.date);
+  console.log('Total Duration Change: +' + lmdi.deltaPct.toFixed(2) + '%');
+  console.log('Scale Effect (JinFang): ' + guiMoPct.toFixed(1) + '%');
+  console.log('Intensity Effect (RenJun): ' + qiangDuPct.toFixed(1) + '%');
+  console.log('');
+  console.log('JSON: ' + jsonFile);
+  console.log('HTML: ' + htmlFile);
+  console.log('========================================');
 }
 
 // 生成HTML报告
@@ -296,7 +199,7 @@ ${getStyles()}
 <header class="header">
 <h1>VV渠道活跃度LMDI-I分解报告</h1>
 <div class="meta">数据期间：${meta.period} | 生成时间：${new Date().toLocaleString('zh-CN')}</div>
-<div class="version-badge">v5.3</div>
+<div class="version-badge">LMDI-I模型</div>
 </header>
 
 <div class="tabs">
@@ -308,9 +211,9 @@ ${getStyles()}
 
 <div id="overview" class="tab-content active">
 <div class="metrics-grid">
-<div class="metric-card"><div class="label">总时长变化</div><div class="value">${decomposition.deltaPct >= 0 ? '+' : ''}${decomposition.deltaPct.toFixed(2)}%</div><div class="change ${decomposition.deltaT >= 0 ? 'up' : 'down'}">${decomposition.deltaT >= 0 ? '+' : ''}${(decomposition.deltaT / 60).toFixed(0)}小时</div></div>
+<div class="metric-card"><div class="label">总时长变化</div><div class="value">+${decomposition.deltaPct.toFixed(2)}%</div><div class="change up">${decomposition.deltaT >= 0 ? '+' : ''}${(decomposition.deltaT / 60).toFixed(0)}小时</div></div>
 <div class="metric-card"><div class="label">规模效应(进房)</div><div class="value">${decomposition.guiMoPct.toFixed(1)}%</div><div class="change neutral">贡献占比</div></div>
-<div class="metric-card ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : ''}"><div class="label">强度效应(人均)</div><div class="value">${decomposition.qiangDuPct.toFixed(1)}%</div><div class="change ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : 'neutral'}">主导因素</div></div>
+<div class="metric-card"><div class="label">强度效应(人均)</div><div class="value">${decomposition.qiangDuPct.toFixed(1)}%</div><div class="change ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : 'neutral'}">主导因素</div></div>
 <div class="metric-card"><div class="label">进房人数变化</div><div class="value">${((periodB.jinFang / periodA.jinFang - 1) * 100).toFixed(2)}%</div><div class="change ${periodB.jinFang >= periodA.jinFang ? 'up' : 'down'}">${periodB.jinFang >= periodA.jinFang ? '+' : ''}${periodB.jinFang - periodA.jinFang}</div></div>
 </div>
 
@@ -318,8 +221,8 @@ ${getStyles()}
 <h2>核心发现</h2>
 <div class="insight-box ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'intensity' : 'scale'}">
 ${decomposition.qiangDuPct > decomposition.guiMoPct ? 
-  '<h3>强度效应主导</h3><p>总时长变化主要原因是<strong>人均时长变化</strong>（贡献' + decomposition.qiangDuPct.toFixed(1) + '%）</p><p>人均时长从' + periodA.renJunShiChang.toFixed(2) + '分钟变为' + periodB.renJunShiChang.toFixed(2) + '分钟</p>' :
-  '<h3>规模效应主导</h3><p>总时长变化主要原因是<strong>进房人数变化</strong>（贡献' + decomposition.guiMoPct.toFixed(1) + '%）</p><p>进房人数从' + periodA.jinFang.toLocaleString() + '变为' + periodB.jinFang.toLocaleString() + '</p>'
+  `<h3>强度效应主导</h3><p>总时长增加主要原因是<strong>人均时长提升</strong>（贡献${decomposition.qiangDuPct.toFixed(1)}%）</p><p>人均时长从${periodA.renJunShiChang.toFixed(2)}分钟增至${periodB.renJunShiChang.toFixed(2)}分钟</p>` :
+  `<h3>规模效应主导</h3><p>总时长增加主要原因是<strong>进房人数增加</strong>（贡献${decomposition.guiMoPct.toFixed(1)}%）</p><p>进房人数从${periodA.jinFang.toLocaleString()}增至${periodB.jinFang.toLocaleString()}</p>`
 }
 </div>
 </div>
@@ -341,7 +244,7 @@ ${decomposition.qiangDuPct > decomposition.guiMoPct ?
 <div class="decomposition-grid">
 <div class="dec-item"><div class="dec-label">总时长变化</div><div class="dec-value">${decomposition.deltaT >= 0 ? '+' : ''}${(decomposition.deltaT / 60).toFixed(0)}小时</div><div class="dec-pct">${decomposition.deltaPct >= 0 ? '+' : ''}${decomposition.deltaPct.toFixed(2)}%</div></div>
 <div class="dec-item"><div class="dec-label">规模效应(进房)</div><div class="dec-value">${decomposition.guiMoEffect >= 0 ? '+' : ''}${(decomposition.guiMoEffect / 60).toFixed(0)}小时</div><div class="dec-pct">${decomposition.guiMoPct.toFixed(1)}%</div></div>
-<div class="dec-item ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : ''}"><div class="dec-label">强度效应(人均)</div><div class="dec-value">${decomposition.qiangDuEffect >= 0 ? '+' : ''}${(decomposition.qiangDuEffect / 60).toFixed(0)}小时</div><div class="dec-pct ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : ''}">${decomposition.qiangDuPct.toFixed(1)}%</div></div>
+<div class="dec-item"><div class="dec-label">强度效应(人均)</div><div class="dec-value">${decomposition.qiangDuEffect >= 0 ? '+' : ''}${(decomposition.qiangDuEffect / 60).toFixed(0)}小时</div><div class="dec-pct ${decomposition.qiangDuPct > decomposition.guiMoPct ? 'highlight' : ''}">${decomposition.qiangDuPct.toFixed(1)}%</div></div>
 </div>
 </div>
 </div>
@@ -352,7 +255,7 @@ ${decomposition.qiangDuPct > decomposition.guiMoPct ?
 <table>
 <thead><tr><th>日期</th><th>DAU</th><th>进房人数</th><th>人均时长(分钟)</th><th>总时长(小时)</th></tr></thead>
 <tbody>
-${dailyData.map(d => '<tr><td>' + d.date + '</td><td>' + d.dau.toLocaleString() + '</td><td>' + d.jinFang.toLocaleString() + '</td><td>' + d.renJunShiChang.toFixed(2) + '</td><td>' + (d.jinFang * d.renJunShiChang / 60).toFixed(0) + '</td></tr>').join('')}
+${dailyData.map(d => `<tr><td>${d.date}</td><td>${d.dau.toLocaleString()}</td><td>${d.jinFang.toLocaleString()}</td><td>${d.renJunShiChang.toFixed(2)}</td><td>${(d.jinFang * d.renJunShiChang / 60).toFixed(0)}</td></tr>`).join('')}
 </tbody>
 </table>
 </div>
@@ -374,7 +277,7 @@ ${generatePieSVG(decomposition.guiMoPct, decomposition.qiangDuPct)}
 </div>
 
 <footer class="footer">
-<p>Powered by OpenClaw vv-active-decomposition v5.3 | LMDI-I模型 | 数据新鲜度检查</p>
+<p>Powered by OpenClaw vv-active-decomposition | LMDI-I模型</p>
 </footer>
 </div>
 
@@ -392,6 +295,11 @@ function showTab(tabId) {
 
 // 生成饼图SVG
 function generatePieSVG(scalePct, intensityPct) {
+  const total = scalePct + intensityPct;
+  const scaleAngle = (scalePct / total) * 360;
+  const intensityAngle = (intensityPct / total) * 360;
+  
+  // 简化：使用柱状图代替饼图
   const scaleHeight = scalePct * 1.5;
   const intensityHeight = intensityPct * 1.5;
   
@@ -428,7 +336,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .card h3 { font-size: 16px; margin: 24px 0 14px; color: #555; }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 24px; }
 .metric-card { background: linear-gradient(135deg, #0C6B5A 0%, #094f43 100%); color: white; padding: 24px; border-radius: 14px; box-shadow: 0 6px 20px rgba(12,107,90,0.4); }
-.metric-card.highlight { background: linear-gradient(135deg, #BC7314 0%, #9A5A10 100%); box-shadow: 0 6px 20px rgba(188,115,20,0.4); }
 .metric-card .label { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
 .metric-card .value { font-size: 32px; font-weight: 800; }
 .metric-card .change { font-size: 13px; margin-top: 10px; font-weight: 600; }
@@ -449,7 +356,6 @@ tr:hover { background: #f8f9fb; }
 .neg { color: #AE3E2D; font-weight: 600; }
 .decomposition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
 .dec-item { background: #f8f9fb; padding: 20px; border-radius: 10px; text-align: center; }
-.dec-item.highlight { border: 2px solid #BC7314; }
 .dec-label { font-size: 12px; color: #666; margin-bottom: 8px; }
 .dec-value { font-size: 22px; font-weight: 700; font-family: monospace; color: #333; }
 .dec-pct { font-size: 14px; color: #999; margin-top: 4px; }

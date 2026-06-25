@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "name": "daily-vv-diagnosis-automation",
+  "description": "VV渠道每日经营体检自动化 - 并行运行 5 个诊断技能并交付报告",
+  "triggers": [
+    "每日 10:00 自动运行",
+    "运行体检",
+    "跑一次全量诊断",
+    "运行所有 skill"
+  ],
+  "skills": [
+    "revenue-diagnosis",
+    "retention-diagnosis",
+    "platform-diagnosis",
+    "ltv-model-filler",
+    "vv-active-decomposition"
+  ],
+  "tested_at": "2026-06-24",
+  "agent_created": true
+}
