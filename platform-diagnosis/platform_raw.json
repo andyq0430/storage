@@ -1,63 +1,83 @@
 {
   "meta": {
-    "extractedAt": "2026-06-24T10:47:00.000Z",
-    "platform": "all",
-    "dateRange": {
-      "yesterday": "2026-06-23",
-      "today": "2026-06-24",
-      "lastWeek": "2026-06-17 ~ 2026-06-23"
+    "extractedAt": "2026-07-02T16:50:00.000Z",
+    "method": "browser-tool",
+    "status": "success"
+  },
+  "dashboard": {
+    "date": "2026-07-02",
+    "revenue": 2313713.18,
+    "recharge": 2295772.4,
+    "newUsers": 2933,
+    "activeUsers": 26586,
+    "retention": 33.04
+  },
+  "cards": {
+    "revenue": {
+      "value": 2313713.18,
+      "yesterday": 1828559.33,
+      "changeRate": 26.53,
+      "direction": "up"
+    },
+    "newUsers": {
+      "value": 2933,
+      "yesterday": 2922,
+      "changeRate": 0.38,
+      "direction": "up"
+    },
+    "active": {
+      "value": 26586,
+      "lastWeek": 25405,
+      "changeRate": 4.65,
+      "direction": "up",
+      "voiceArea": 18558,
+      "videoArea": 6663
+    },
+    "retention": {
+      "value": 33.04,
+      "yesterday": 35.55,
+      "changeRate": -7.06,
+      "direction": "down"
     }
   },
-  "kpiSummary": {
-    "营收": { "value": "1650276.09", "change": "▼ 9.61%" },
-    "新增": { "value": "2929", "change": "▲ 5.82%" },
-    "活跃": { "value": "25423", "change": "▲ 1.18%" },
-    "留存": { "value": "36.93", "change": "▼ 0.65%" }
+  "platforms": {
+    "revenue": [
+      { "name": "vv", "yesterdayRevenue": 1776042.36, "revenueShare": 76.76, "changeRate": 25.45, "direction": "up" },
+      { "name": "觅光", "yesterdayRevenue": 343652.07, "revenueShare": 14.85, "changeRate": 55.8, "direction": "up" },
+      { "name": "萤火", "yesterdayRevenue": 92610.07, "revenueShare": 4, "changeRate": 1.2, "direction": "up" },
+      { "name": "椰奶", "yesterdayRevenue": 57822.74, "revenueShare": 2.5, "changeRate": 19.01, "direction": "up" },
+      { "name": "可乐语音", "yesterdayRevenue": 33000.54, "revenueShare": 1.43, "changeRate": -27.55, "direction": "down" },
+      { "name": "青鸾直播", "yesterdayRevenue": 10585.4, "revenueShare": 0.46, "changeRate": 61.43, "direction": "up" }
+    ],
+    "newUsers": [
+      { "name": "vv", "yesterdayNew": 1556, "changeRate": -8.2, "direction": "down", "weekNew": 10358, "monthNew": 54651 },
+      { "name": "觅光", "yesterdayNew": 461, "changeRate": -2.33, "direction": "down", "weekNew": 3519, "monthNew": 14671 },
+      { "name": "萤火", "yesterdayNew": 415, "changeRate": 15.6, "direction": "up", "weekNew": 2583, "monthNew": 10109 },
+      { "name": "椰奶", "yesterdayNew": 274, "changeRate": 31.73, "direction": "up", "weekNew": 1919, "monthNew": 3324 },
+      { "name": "青鸾直播", "yesterdayNew": 147, "changeRate": 50, "direction": "up", "weekNew": 1026, "monthNew": 4083 },
+      { "name": "可乐语音", "yesterdayNew": 80, "changeRate": -11.11, "direction": "down", "weekNew": 640, "monthNew": 2819 }
+    ],
+    "active": [
+      { "name": "vv", "yesterdayActive": 16496, "changeRate": 4, "direction": "up", "weekActive": 109532, "monthActive": 487600 },
+      { "name": "觅光", "yesterdayActive": 4107, "changeRate": 0.98, "direction": "up", "weekActive": 28138, "monthActive": 118529 },
+      { "name": "萤火", "yesterdayActive": 3325, "changeRate": 5.06, "direction": "up", "weekActive": 22288, "monthActive": 92311 },
+      { "name": "椰奶", "yesterdayActive": 1015, "changeRate": 2.11, "direction": "up", "weekActive": 7656, "monthActive": 30083 },
+      { "name": "青鸾直播", "yesterdayActive": 858, "changeRate": 14.25, "direction": "up", "weekActive": 4836, "monthActive": 10537 },
+      { "name": "可乐语音", "yesterdayActive": 785, "changeRate": -0.88, "direction": "down", "weekActive": 5405, "monthActive": 23848 }
+    ]
   },
-  "platforms": [
-    { 
-      "platform": "vv", 
-      "revenue": { "yesterday": 1352965.8, "yesterdayRevenue": 1330566.12, "share": 80.63, "trend": "▼ 11.81%", "lastWeek": 8851621.15, "lastWeekRevenue": 9103956.95, "lastMonth": 38109584.72, "lastMonthRevenue": 39274899.78 },
-      "acquisition": { "yesterday": 1408, "trend": "+8.81%", "lastWeek": 11850, "lastMonth": 62963 },
-      "active": { "yesterday": 15637, "trend": "+3.04%", "lastWeek": 112385, "lastMonth": 493301 }
-    },
-    { 
-      "platform": "觅光", 
-      "revenue": { "yesterday": 140784.2, "yesterdayRevenue": 150300.96, "share": 9.11, "trend": "▼ 5.27%", "lastWeek": 1334152.8, "lastWeekRevenue": 1485496.9, "lastMonth": 4713850.4, "lastMonthRevenue": 5059785.13 },
-      "acquisition": { "yesterday": 489, "trend": "-7.91%", "lastWeek": 3344, "lastMonth": 14570 },
-      "active": { "yesterday": 4053, "trend": "-0.71%", "lastWeek": 27926, "lastMonth": 126435 }
-    },
-    { 
-      "platform": "萤火", 
-      "revenue": { "yesterday": 62839, "yesterdayRevenue": 69010.45, "share": 4.18, "trend": "▼ 14.03%", "lastWeek": 646135, "lastWeekRevenue": 694944.22, "lastMonth": 2567715, "lastMonthRevenue": 2837835.1 },
-      "acquisition": { "yesterday": 341, "trend": "-10.26%", "lastWeek": 2259, "lastMonth": 10202 },
-      "active": { "yesterday": 3166, "trend": "-1.34%", "lastWeek": 21474, "lastMonth": 93243 }
-    },
-    { 
-      "platform": "可乐语音", 
-      "revenue": { "yesterday": 48453, "yesterdayRevenue": 55292.86, "share": 3.35, "trend": "▲ 63.74%", "lastWeek": 250898, "lastWeekRevenue": 272283.42, "lastMonth": 1246448, "lastMonthRevenue": 1266338.49 },
-      "acquisition": { "yesterday": 99, "trend": "+22.22%", "lastWeek": 588, "lastMonth": 2662 },
-      "active": { "yesterday": 780, "trend": "+1.56%", "lastWeek": 5519, "lastMonth": 24917 }
-    },
-    { 
-      "platform": "椰奶", 
-      "revenue": { "yesterday": 39071, "yesterdayRevenue": 41339.4, "share": 2.5, "trend": "▲ 1.52%", "lastWeek": 284920, "lastWeekRevenue": 313998.86, "lastMonth": 1347481.63, "lastMonthRevenue": 3228442.44 },
-      "acquisition": { "yesterday": 178, "trend": "+27.14%", "lastWeek": 986, "lastMonth": 4658 },
-      "active": { "yesterday": 1058, "trend": "-1.31%", "lastWeek": 7194, "lastMonth": 28160 }
-    },
-    { 
-      "platform": "青鸾直播", 
-      "revenue": { "yesterday": 3579, "yesterdayRevenue": 3766.3, "share": 0.23, "trend": "▲ 5.43%", "lastWeek": 969, "lastWeekRevenue": 36474.2, "lastMonth": 285997, "lastMonthRevenue": 310990.68 },
-      "acquisition": { "yesterday": 253, "trend": "+163.54%", "lastWeek": 415, "lastMonth": 2095 },
-      "active": { "yesterday": 526, "trend": "+87.19%", "lastWeek": 1409, "lastMonth": 17973 }
-    }
-  ],
-  "totals": {
-    "revenueYesterday": 1650276.09,
-    "revenueToday": 354484.13,
-    "newUsersYesterday": 2929,
-    "dauYesterday": 25423,
-    "avgRetention": 36.93
-  },
-  "hhi": 6619
+  "retention": {
+    "days": [
+      { "date": "2026-06-30", "r1": 198.26, "r3": 0, "r7": 0 },
+      { "date": "2026-06-29", "r1": 213.30, "r3": 0, "r7": 0 },
+      { "date": "2026-06-28", "r1": 182.96, "r3": 100.39, "r7": 0 },
+      { "date": "2026-06-27", "r1": 195.24, "r3": 115.12, "r7": 0 },
+      { "date": "2026-06-26", "r1": 208.71, "r3": 115.14, "r7": 0 },
+      { "date": "2026-06-25", "r1": 207.47, "r3": 112.53, "r7": 0 },
+      { "date": "2026-06-24", "r1": 212.53, "r3": 118.19, "r7": 84.50 }
+    ],
+    "avgRetention": 33.04,
+    "yesterdayAvgRetention": 35.55,
+    "changeRate": -7.06
+  }
 }

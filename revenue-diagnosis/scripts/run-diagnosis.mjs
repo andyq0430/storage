@@ -1,7 +1,23 @@
 #!/usr/bin/env node
 /**
- * revenue-diagnosis 执行脚本
- * 从产品数据页面抓取营收数据，运行LMDI三因子分解，生成HTML报告
+ * revenue-diagnosis v3.3 执行脚本
+ * 
+ * 功能：
+ * 1. 数据新鲜度检查（超过1天视为过期）
+ * 2. 过期时返回退出码10，触发Agent自动浏览器提取
+ * 3. LMDI三因子分解
+ * 4. 集中度分析（基尼系数或CR3/CR10/HHI fallback）
+ * 5. 生成HTML报告
+ * 
+ * 用法：
+ * node run-diagnosis.mjs              # 正常执行（检查新鲜度）
+ * node run-diagnosis.mjs --force      # 强制使用过期数据
+ * node run-diagnosis.mjs --verbose    # 详细输出
+ * 
+ * 返回码：
+ * 0  - 成功完成
+ * 10 - 数据过期，需要浏览器提取
+ * 1  - 其他错误
  */
 
 import fs from 'fs';
@@ -12,13 +28,111 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const SKILL_DIR = path.resolve(__dirname, '..');
 const OUTPUT_DIR = path.join(SKILL_DIR, 'report');
+const RAW_DATA_FILE = path.join(SKILL_DIR, 'raw_data.json');
+
+// 解析命令行参数
+const args = process.argv.slice(2);
+const verbose = args.includes('--verbose');
+const forceMode = args.includes('--force');
+
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('VV渠道营收诊断 v3.3');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+
+// ============================================================
+// 步骤1：数据新鲜度检查
+// ============================================================
+console.log('📅 步骤1：数据新鲜度检查');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+function checkDataFreshness() {
+  // 读取raw_data.json
+  if (!fs.existsSync(RAW_DATA_FILE)) {
+    return { fresh: false, reason: 'raw_data.json 不存在', maxDate: null };
+  }
+  
+  const rawData = JSON.parse(fs.readFileSync(RAW_DATA_FILE, 'utf-8'));
+  const days = rawData.days || [];
+  
+  if (days.length === 0) {
+    return { fresh: false, reason: 'days数组为空', maxDate: null };
+  }
+  
+  // 获取最新日期
+  const dates = days
+    .map(d => d.date)
+    .filter(d => d && /^\d{4}-\d{2}-\d{2}$/.test(d))
+    .sort()
+    .reverse();
+  
+  if (dates.length === 0) {
+    return { fresh: false, reason: '无有效日期数据', maxDate: null };
+  }
+  
+  const maxDate = dates[0];
+  
+  // 计算日期差
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const maxDateObj = new Date(maxDate + 'T00:00:00');
+  const diffDays = Math.floor((today - maxDateObj) / (1000 * 60 * 60 * 24));
+  
+  // 判断新鲜度（超过1天视为过期）
+  const isFresh = diffDays <= 1;
+  
+  return {
+    fresh: isFresh,
+    reason: isFresh ? '数据新鲜' : `数据已过期${diffDays}天`,
+    maxDate,
+    diffDays,
+    dayCount: days.length
+  };
+}
+
+const freshness = checkDataFreshness();
+const today = new Date().toISOString().slice(0, 10);
+
+console.log(`📅 当前日期: ${today}`);
+console.log(`📊 数据最新日期: ${freshness.maxDate || '无数据'}`);
+
+if (freshness.fresh) {
+  console.log('✅ 数据新鲜度: OK');
+  console.log(`   数据天数: ${freshness.dayCount}`);
+} else {
+  console.log(`❌ 数据新鲜度: 过期 (${freshness.reason})`);
+  if (verbose) {
+    console.log(`   详细: ${freshness.diffDays}天前`);
+  }
+}
+
+// 强制模式检查
+if (!freshness.fresh && !forceMode) {
+  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('⚠️  数据已过期，需要提取最新数据');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('\n返回码: 10 (触发浏览器提取)');
+  console.log('\n如需强制使用过期数据，请使用 --force 参数');
+  process.exit(10);
+}
+
+if (forceMode && !freshness.fresh) {
+  console.log('⚠️  强制模式：使用过期数据继续执行');
+}
+
+console.log('');
+
+// ============================================================
+// 步骤2：加载数据
+// ============================================================
+console.log('📈 步骤2：加载数据');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
 // 确保输出目录
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-// 模拟数据（实际应从CDP Proxy抓取）
 function loadData() {
   const rawFile = path.join(SKILL_DIR, 'raw_data.json');
   if (!fs.existsSync(rawFile)) return null;
@@ -66,20 +180,20 @@ function calculateGini(tiers) {
   let totalUsers = 0;
   
   tiers.forEach(tier => {
-    totalAmount += tier.amt || 0;
-    totalUsers += tier.cnt || 0;
+    totalAmount += tier.amt || tier.amount || 0;
+    totalUsers += tier.cnt || tier.count || 0;
   });
   
   if (totalAmount === 0 || totalUsers === 0) return null;
   
-  const sortedTiers = [...tiers].sort((a, b) => a.amt - b.amt);
+  const sortedTiers = [...tiers].sort((a, b) => (a.amt || a.amount) - (b.amt || b.amount));
   let cumAmount = 0;
   let giniSum = 0;
   
   sortedTiers.forEach((tier, i) => {
     const prevAmount = cumAmount;
-    cumAmount += tier.amt;
-    const proportion = tier.cnt / totalUsers;
+    cumAmount += tier.amt || tier.amount || 0;
+    const proportion = (tier.cnt || tier.count || 0) / totalUsers;
     giniSum += proportion * (prevAmount + cumAmount);
   });
   
@@ -88,17 +202,14 @@ function calculateGini(tiers) {
 }
 
 // 集中度指标计算（从TOP频道数据）
-// 当tiers为空时，使用TOP频道数据计算替代指标
 function calculateConcentration(top) {
   if (!top || top.length === 0) return { cr3: 0, cr10: 0, hhi: 0, available: false };
   
-  // top数组中share字段是百分比（如1.87表示1.87%）
   const shares = top.map(t => (t.share || 0)).sort((a, b) => b - a);
   
   const cr3 = shares.slice(0, 3).reduce((s, v) => s + v, 0);
   const cr10 = shares.slice(0, 10).reduce((s, v) => s + v, 0);
   
-  // HHI = Σ(份额²) × 10000，份额需为小数
   const hhi = shares.reduce((s, v) => s + Math.pow(v / 100, 2), 0) * 10000;
   
   return {
@@ -115,7 +226,6 @@ function evaluateConcentration(tiers, top) {
   const gini = calculateGini(tiers);
   const conc = calculateConcentration(top);
   
-  // 如果有tiers数据，优先用基尼系数
   if (gini !== null) {
     return {
       gini,
@@ -126,9 +236,7 @@ function evaluateConcentration(tiers, top) {
     };
   }
   
-  // 无tiers数据，用TOP频道集中度替代
-  const { cr3, cr10, hhi } = conc;
-  // 根据HHI判断：HHI < 100竞争充分，100-1500适度集中，1500-2500高度集中，>2500极高集中
+  const { hhi } = conc;
   let level, label;
   if (hhi < 100) {
     level = 'healthy'; label = '竞争充分（健康）';
@@ -147,11 +255,163 @@ function evaluateConcentration(tiers, top) {
   };
 }
 
-// 生成HTML报告
+const data = loadData();
+
+if (!data || !data.days || data.days.length < 2) {
+  console.log('❌ 数据加载失败或数据不足');
+  process.exit(1);
+}
+
+const days = data.days.sort((a, b) => a.date < b.date ? -1 : 1);
+const periodA = days[0];
+const periodB = days[days.length - 1];
+
+console.log('✅ 数据加载成功');
+console.log(`   数据期间: ${periodA.date} ~ ${periodB.date}`);
+console.log(`   数据天数: ${days.length}`);
+
+// ============================================================
+// 步骤3：LMDI分解（首尾对比 + 逐日分解）
+// ============================================================
+console.log('\n📈 步骤3：LMDI三因子分解');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+// 首尾对比（整体变化）
+const decomposition = lmdiDecompose(
+  periodA.totR, periodB.totR,
+  periodA.totPU, periodB.totPU,
+  periodA.totp, periodB.totp
+);
+
+if (!decomposition) {
+  console.log('❌ LMDI计算失败');
+  process.exit(1);
+}
+
+// 计算逐日分解（每一天与前一天对比）
+const dailyDecompositions = [];
+for (let i = 1; i < days.length; i++) {
+  const prev = days[i - 1];
+  const curr = days[i];
+  const dailyDecomp = lmdiDecompose(
+    prev.totR, curr.totR,
+    prev.totPU, curr.totPU,
+    prev.totp, curr.totp
+  );
+  if (dailyDecomp) {
+    dailyDecompositions.push({
+      date: curr.date,
+      prevDate: prev.date,
+      ...dailyDecomp,
+      totR: curr.totR,
+      totPU: curr.totPU,
+      totp: curr.totp,
+      arppu: curr.arppu || (curr.totR / curr.totPU)
+    });
+  }
+}
+
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('   LMDI三因子分解结果（整体变化）');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log(`   营收变化: ${decomposition.deltaR >= 0 ? '+' : ''}¥${decomposition.deltaR.toLocaleString()}`);
+console.log(`   用户量效应: ${decomposition.userPct.toFixed(1)}%`);
+console.log(`   渗透率效应: ${decomposition.penetrationPct.toFixed(1)}%`);
+console.log(`   ARPPU效应: ${decomposition.arppuPct.toFixed(1)}%`);
+
+// 输出逐日分解
+console.log('\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('   逐日LMDI分解结果');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+dailyDecompositions.forEach(d => {
+  console.log(`   ${d.date}: 营收${d.deltaR >= 0 ? '+' : ''}¥${Math.abs(d.deltaR).toLocaleString()}, 用户量${d.userPct.toFixed(1)}%, ARPPU${d.arppuPct.toFixed(1)}%`);
+});
+
+// ============================================================
+// 步骤4：集中度分析
+// ============================================================
+console.log('\n📊 步骤4：集中度分析');
+console.log('   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+const evaluation = evaluateConcentration(data.tiers || [], data.top || []);
+console.log(`   数据源: ${evaluation.source === 'tiers' ? '付费分档' : 'TOP频道'}`);
+if (evaluation.gini !== null) {
+  console.log(`   基尼系数: ${evaluation.gini.toFixed(3)}`);
+} else {
+  console.log(`   CR3: ${evaluation.conc.cr3}%`);
+  console.log(`   CR10: ${evaluation.conc.cr10}%`);
+  console.log(`   HHI: ${evaluation.conc.hhi}`);
+}
+console.log(`   判定: ${evaluation.giniLabel}`);
+
+// ============================================================
+// 步骤5：生成HTML报告
+// ============================================================
+console.log('\n📄 步骤5：生成HTML报告');
+
+const results = {
+  meta: {
+    stamp: new Date().toISOString(),
+    source: 'vv/营收',
+    period: `${periodA.date} ~ ${periodB.date}`
+  },
+  periodA,
+  periodB,
+  decomposition,
+  dailyDecompositions, // 新增：逐日分解结果
+  days,
+  tiers: data.tiers || [],
+  top: data.top || [],
+  evaluation
+};
+
+// 生成HTML（复用原有逻辑）
+const html = generateHTML(results);
+const htmlFile = path.join(OUTPUT_DIR, 'index.html');
+fs.writeFileSync(htmlFile, html);
+
+// 保存JSON
+const jsonFile = path.join(SKILL_DIR, 'results.json');
+fs.writeFileSync(jsonFile, JSON.stringify(results, null, 2));
+
+console.log('   ✅ HTML报告已生成: ' + htmlFile);
+
+// ============================================================
+// 输出摘要
+// ============================================================
+console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('✅ 营收诊断完成！');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+
+console.log('输出文件：');
+console.log('  • raw_data.json    - 原始数据');
+console.log('  • results.json     - 分解结果');
+console.log('  • report/index.html - HTML报告\n');
+
+console.log('诊断结果：');
+console.log(`  • 数据期间: ${periodA.date} ~ ${periodB.date}`);
+console.log(`  • 营收变化: ${decomposition.deltaR >= 0 ? '+' : ''}¥${Math.abs(decomposition.deltaR).toLocaleString()}`);
+console.log(`  • 用户量效应: ${decomposition.userPct.toFixed(1)}%`);
+console.log(`  • ARPPU效应: ${decomposition.arppuPct.toFixed(1)}%`);
+
+// 判断主导因素
+const dominant = decomposition.userPct > decomposition.arppuPct ? '用户量' : 'ARPPU';
+console.log(`  • 主导因素: ${dominant} (${Math.max(decomposition.userPct, decomposition.arppuPct).toFixed(1)}%)`);
+
+// 集中度
+if (evaluation.gini !== null) {
+  console.log(`  • 基尼系数: ${evaluation.gini.toFixed(3)} (${evaluation.giniLabel})`);
+} else {
+  console.log(`  • HHI指数: ${evaluation.conc.hhi} (${evaluation.giniLabel})`);
+}
+
+process.exit(0);
+
+// ============================================================
+// HTML生成函数
+// ============================================================
 function generateHTML(results) {
-  const { meta, periodA, periodB, decomposition, days, tiers, top } = results;
-  
-  const evaluation = evaluateConcentration(tiers, top);
+  const { meta, periodA, periodB, decomposition, dailyDecompositions, days, tiers, top, evaluation } = results;
   const { gini, giniLevel, giniLabel, source: concSource, conc } = evaluation;
   
   return `<!DOCTYPE html>
@@ -169,7 +429,7 @@ ${getStyles()}
 <header class="header">
 <h1>VV渠道营收体检诊断报告</h1>
 <div class="meta">数据期间：${periodA.date} ~ ${periodB.date} | 生成时间：${new Date().toLocaleString('zh-CN')} | 模型：LMDI三因子分解</div>
-<div class="version-badge">v2.0</div>
+<div class="version-badge">v3.3</div>
 </header>
 
 <div class="tabs">
@@ -184,7 +444,7 @@ ${getStyles()}
 <div class="metrics-grid">
 <div class="metric-card"><div class="label">营收变化</div><div class="value">${decomposition.deltaR >= 0 ? '+' : ''}${((decomposition.deltaR / periodA.totR) * 100).toFixed(2)}%</div><div class="change ${decomposition.deltaR >= 0 ? 'up' : 'down'}">${decomposition.deltaR >= 0 ? '↑' : '↓'} ¥${Math.abs(decomposition.deltaR).toLocaleString()}</div></div>
 <div class="metric-card"><div class="label">用户量效应</div><div class="value">${decomposition.userPct.toFixed(1)}%</div><div class="change neutral">贡献占比</div></div>
-<div class="metric-card highlight"><div class="label">ARPPU效应</div><div class="value">${decomposition.arppuPct.toFixed(1)}%</div><div class="change highlight">主导因素</div></div>
+<div class="metric-card highlight"><div class="label">${decomposition.arppuPct > decomposition.userPct ? 'ARPPU效应' : '用户量效应'}</div><div class="value">${Math.max(decomposition.arppuPct, decomposition.userPct).toFixed(1)}%</div><div class="change highlight">主导因素</div></div>
 <div class="metric-card"><div class="label">${concSource === 'tiers' ? '基尼系数' : 'HHI指数'}</div><div class="value">${concSource === 'tiers' ? gini.toFixed(3) : conc.hhi.toFixed(1)}</div><div class="change ${giniLevel}">${giniLabel}</div></div>
 </div>
 
@@ -217,6 +477,14 @@ ${getStyles()}
 <div class="dec-item"><div class="dec-label">渗透率效应</div><div class="dec-value">${decomposition.penetrationEffect >= 0 ? '+' : ''}¥${Math.abs(decomposition.penetrationEffect).toLocaleString()}</div><div class="dec-pct">${decomposition.penetrationPct.toFixed(1)}%</div></div>
 <div class="dec-item highlight"><div class="dec-label">ARPPU效应</div><div class="dec-value">${decomposition.arppuEffect >= 0 ? '+' : ''}¥${Math.abs(decomposition.arppuEffect).toLocaleString()}</div><div class="dec-pct highlight">${decomposition.arppuPct.toFixed(1)}%</div></div>
 </div>
+
+<h3>逐日分解（7天内）</h3>
+<table>
+<thead><tr><th>日期</th><th>营收</th><th>付费用户</th><th>付费渗透率</th><th>ARPPU</th><th>营收变化</th><th>用户量效应</th><th>渗透率效应</th><th>ARPPU效应</th></tr></thead>
+<tbody>
+${(dailyDecompositions || []).map(d => '<tr><td>' + d.date + '</td><td>¥' + d.totR.toLocaleString() + '</td><td>' + d.totPU.toLocaleString() + '</td><td>' + d.totp.toFixed(2) + '%</td><td>¥' + (d.arppu || 0).toFixed(2) + '</td><td class="' + (d.deltaR >= 0 ? 'pos' : 'neg') + '">' + (d.deltaR >= 0 ? '+' : '') + '¥' + Math.abs(d.deltaR).toLocaleString() + '</td><td>' + d.userPct.toFixed(1) + '%</td><td>' + d.penetrationPct.toFixed(1) + '%</td><td class="' + (d.arppuPct > 100 ? 'highlight' : '') + '">' + d.arppuPct.toFixed(1) + '%</td></tr>').join('')}
+</tbody>
+</table>
 </div>
 </div>
 
@@ -232,7 +500,7 @@ ${concSource === 'tiers' ? `
 <table>
 <thead><tr><th>档位</th><th>用户数</th><th>付费金额</th><th>占比</th></tr></thead>
 <tbody>
-${(tiers || []).map(tier => `<tr><td>${tier.name}</td><td>${tier.cnt.toLocaleString()}</td><td>¥${tier.amt.toLocaleString()}</td><td>${((tier.amt / (periodB.totR || 1)) * 100).toFixed(1)}%</td></tr>`).join('')}
+${(tiers || []).map(tier => '<tr><td>' + (tier.name || tier.tier) + '</td><td>' + (tier.cnt || tier.count || 0).toLocaleString() + '</td><td>¥' + (tier.amt || tier.amount || 0).toLocaleString() + '</td><td>' + (((tier.amt || tier.amount || 0) / (periodB.totR || 1)) * 100).toFixed(1) + '%</td></tr>').join('')}
 </tbody>
 </table>
 ` : `
@@ -249,10 +517,10 @@ ${(tiers || []).map(tier => `<tr><td>${tier.name}</td><td>${tier.cnt.toLocaleStr
 <table>
 <thead><tr><th>排名</th><th>频道ID</th><th>营收</th><th>占比</th></tr></thead>
 <tbody>
-${(top || []).map((ch, i) => `<tr><td>${i + 1}</td><td>${ch.channelId}</td><td>¥${(ch.revenue || 0).toLocaleString()}</td><td>${(ch.share || 0).toFixed(2)}%</td></tr>`).join('')}
+${(top || []).map((ch, i) => '<tr><td>' + (i + 1) + '</td><td>' + ch.channelId + '</td><td>¥' + (ch.revenue || 0).toLocaleString() + '</td><td>' + (ch.share || 0).toFixed(2) + '%</td></tr>').join('')}
 </tbody>
 </table>
-<div class="note-box">⚠️ 付费分档数据不可用，集中度指标基于TOP频道数据计算。HHI仅统计已知的${conc.topCount}个频道，实际HHI可能更高（未统计频道贡献平方项）。</div>
+<div class="note-box">⚠️ 付费分档数据不可用，集中度指标基于TOP频道数据计算。HHI仅统计已知的${conc.topCount}个频道，实际HHI可能更高。</div>
 `}
 </div>
 </div>
@@ -300,7 +568,7 @@ ${(top || []).map((ch, i) => `<tr><td>${i + 1}</td><td>${ch.channelId}</td><td>�
 </div>
 
 <footer class="footer">
-<p>Powered by OpenClaw revenue-diagnosis | LMDI三因子分解模型 | 数据来源：产品数据页面-营收分类</p>
+<p>Powered by OpenClaw revenue-diagnosis v3.3 | LMDI三因子分解模型 | 数据新鲜度检查</p>
 </footer>
 </div>
 
@@ -316,7 +584,6 @@ function showTab(tabId) {
 </html>`;
 }
 
-// 获取样式
 function getStyles() {
   return `
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -406,70 +673,3 @@ tr:hover { background: #f8f9fb; }
 .footer { text-align: center; padding: 24px; color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 30px; }
   `;
 }
-
-// 主函数
-async function main() {
-  const data = loadData();
-  
-  if (!data || !data.days || data.days.length < 2) {
-    console.log('No data found or insufficient data');
-    process.exit(1);
-  }
-  
-  const days = data.days.sort((a, b) => a.date < b.date ? -1 : 1);
-  const periodA = days[0];
-  const periodB = days[days.length - 1];
-  
-  const decomposition = lmdiDecompose(
-    periodA.totR, periodB.totR,
-    periodA.totPU, periodB.totPU,
-    periodA.totp, periodB.totp
-  );
-  
-  if (!decomposition) {
-    console.log('LMDI calculation failed');
-    process.exit(1);
-  }
-  
-  const results = {
-    meta: {
-      stamp: new Date().toISOString(),
-      source: 'vv/营收',
-      period: `${periodA.date} ~ ${periodB.date}`
-    },
-    periodA,
-    periodB,
-    decomposition,
-    days,
-    tiers: data.tiers || [],
-    top: data.top || []
-  };
-  
-  // 生成HTML
-  const html = generateHTML(results);
-  const htmlFile = path.join(OUTPUT_DIR, 'index.html');
-  fs.writeFileSync(htmlFile, html);
-  
-  // 保存JSON
-  const jsonFile = path.join(SKILL_DIR, 'results.json');
-  fs.writeFileSync(jsonFile, JSON.stringify(results, null, 2));
-  
-  // 输出
-  console.log('========================================');
-  console.log('Revenue Diagnosis Completed');
-  console.log('========================================');
-  console.log('Period: ' + periodA.date + ' vs ' + periodB.date);
-  console.log('Revenue Change: ' + (decomposition.deltaR >= 0 ? '+' : '') + '¥' + decomposition.deltaR.toLocaleString());
-  console.log('User Effect: ' + decomposition.userPct.toFixed(1) + '%');
-  console.log('ARPPU Effect: ' + decomposition.arppuPct.toFixed(1) + '%');
-  const ev = evaluateConcentration(data.tiers || [], data.top || []);
-  console.log('Concentration source: ' + ev.source);
-  if (ev.gini !== null) console.log('Gini: ' + ev.gini.toFixed(3));
-  console.log('CR3: ' + ev.conc.cr3 + '%  CR10: ' + ev.conc.cr10 + '%  HHI: ' + ev.conc.hhi);
-  console.log('');
-  console.log('HTML: ' + htmlFile);
-  console.log('JSON: ' + jsonFile);
-  console.log('========================================');
-}
-
-main();

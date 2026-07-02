@@ -1,141 +1,248 @@
 {
   "meta": {
-    "stamp": "2026-06-24T06:50:31.842Z",
+    "stamp": "2026-07-02T09:35:04.080Z",
     "source": "vv/营收",
-    "period": "2026-06-16 ~ 2026-06-23"
+    "period": "2026-06-25 ~ 2026-07-02"
   },
   "periodA": {
-    "date": "2026-06-16",
-    "totR": 1384614.39,
-    "totPU": 4606,
-    "totp": 27.2,
-    "newp": 20.7,
-    "arppu": 349.33,
-    "recharge": 1551821.15
+    "date": "2026-06-25",
+    "totR": 1205848.76,
+    "totPU": 3765,
+    "totp": 24.01,
+    "newp": 12.75,
+    "arppu": 327.79,
+    "recharge": 1209092
   },
   "periodB": {
-    "date": "2026-06-23",
-    "totR": 437274,
-    "totPU": 1970,
-    "totp": 20.04,
-    "newp": 7.37,
-    "arppu": 263.5,
-    "recharge": 506228.6
+    "date": "2026-07-02",
+    "totR": 749710.69,
+    "totPU": 2538,
+    "totp": 21,
+    "newp": 14.39,
+    "arppu": 377.6,
+    "recharge": 924065.4
   },
   "decomposition": {
-    "deltaR": -947340.3899999999,
-    "userEffect": -698064.575570372,
-    "userPct": 73.68677435682565,
-    "penetrationEffect": -251080.71176622697,
-    "penetrationPct": 26.50374822150537,
-    "arppuEffect": -249275.81442962782,
-    "arppuPct": 26.31322564317434
+    "deltaR": -456138.07000000007,
+    "userEffect": -378510.7922940328,
+    "userPct": 82.9816270968202,
+    "penetrationEffect": -128560.89812401195,
+    "penetrationPct": 28.184645522793556,
+    "arppuEffect": -77627.2777059673,
+    "arppuPct": 17.018372903179795
   },
+  "dailyDecompositions": [
+    {
+      "date": "2026-06-26",
+      "prevDate": "2026-06-25",
+      "deltaR": 261814.78000000003,
+      "userEffect": -15663.756603260068,
+      "userPct": 5.982762548111328,
+      "penetrationEffect": -17878.298568405466,
+      "penetrationPct": 6.828605538772664,
+      "arppuEffect": 277478.53660325997,
+      "arppuPct": 105.98276254811128,
+      "totR": 1467663.54,
+      "totPU": 3721,
+      "totp": 23.69,
+      "arppu": 338.27
+    },
+    {
+      "date": "2026-06-27",
+      "prevDate": "2026-06-26",
+      "deltaR": -82782.37000000011,
+      "userEffect": 85157.53022909566,
+      "userPct": 102.86916191103921,
+      "penetrationEffect": 53745.993944906935,
+      "penetrationPct": 64.92444459479339,
+      "arppuEffect": -167939.90022909557,
+      "arppuPct": 202.86916191103893,
+      "totR": 1384881.17,
+      "totPU": 3950,
+      "totp": 24.6,
+      "arppu": 339.35
+    },
+    {
+      "date": "2026-06-28",
+      "prevDate": "2026-06-27",
+      "deltaR": -303872.7999999998,
+      "userEffect": -114154.12360984135,
+      "userPct": 37.56641713567039,
+      "penetrationEffect": -9511.121437747819,
+      "penetrationPct": 3.1299680121905697,
+      "arppuEffect": -189718.6763901584,
+      "arppuPct": 62.43358286432959,
+      "totR": 1081008.37,
+      "totPU": 3599,
+      "totp": 24.41,
+      "arppu": 320.66
+    },
+    {
+      "date": "2026-06-29",
+      "prevDate": "2026-06-28",
+      "deltaR": -35620.75000000012,
+      "userEffect": 16123.408319261303,
+      "userPct": 45.26408994549877,
+      "penetrationEffect": -27797.893234007595,
+      "penetrationPct": 78.03848384440953,
+      "arppuEffect": -51744.15831926156,
+      "arppuPct": 145.26408994549917,
+      "totR": 1045387.62,
+      "totPU": 3654,
+      "totp": 23.78,
+      "arppu": 296.06
+    },
+    {
+      "date": "2026-06-30",
+      "prevDate": "2026-06-29",
+      "deltaR": 123949.5199999999,
+      "userEffect": 35744.798088223266,
+      "userPct": 28.838190005272544,
+      "penetrationEffect": 465.0852499591964,
+      "penetrationPct": 0.3752215014299344,
+      "arppuEffect": 88204.72191177671,
+      "arppuPct": 71.1618099947275,
+      "totR": 1169337.14,
+      "totPU": 3774,
+      "totp": 23.79,
+      "arppu": 375.14
+    },
+    {
+      "date": "2026-07-01",
+      "prevDate": "2026-06-30",
+      "deltaR": 496097.17000000016,
+      "userEffect": 173214.94817072953,
+      "userPct": 34.91552837738008,
+      "penetrationEffect": 118664.55456666599,
+      "penetrationPct": 23.91961932914593,
+      "arppuEffect": 322882.2218292705,
+      "arppuPct": 65.0844716226199,
+      "totR": 1665434.31,
+      "totPU": 4270,
+      "totp": 25.89,
+      "arppu": 415.93
+    },
+    {
+      "date": "2026-07-02",
+      "prevDate": "2026-07-01",
+      "deltaR": -915723.6200000001,
+      "userEffect": -596869.5638157292,
+      "userPct": 65.18009918928695,
+      "penetrationEffect": -240169.76069736044,
+      "penetrationPct": 26.227319624818723,
+      "arppuEffect": -318854.0561842709,
+      "arppuPct": 34.819900810713044,
+      "totR": 749710.69,
+      "totPU": 2538,
+      "totp": 21,
+      "arppu": 377.6
+    }
+  ],
   "days": [
     {
-      "date": "2026-06-16",
-      "totR": 1384614.39,
-      "totPU": 4606,
-      "totp": 27.2,
-      "newp": 20.7,
-      "arppu": 349.33,
-      "recharge": 1551821.15
-    },
-    {
-      "date": "2026-06-17",
-      "totR": 1360489.23,
-      "totPU": 4429,
-      "totp": 26.07,
-      "newp": 20.1,
-      "arppu": 293.97,
-      "recharge": 1349711.2
-    },
-    {
-      "date": "2026-06-18",
-      "totR": 1259302.88,
-      "totPU": 4228,
-      "totp": 25.69,
-      "newp": 20.29,
-      "arppu": 328.02,
-      "recharge": 1260935.6
-    },
-    {
-      "date": "2026-06-19",
-      "totR": 1082688.62,
-      "totPU": 3972,
-      "totp": 26.09,
-      "newp": 19.4,
-      "arppu": 326.8,
-      "recharge": 1236071.2
-    },
-    {
-      "date": "2026-06-20",
-      "totR": 1092222.78,
-      "totPU": 3781,
-      "totp": 25.99,
-      "newp": 13.94,
-      "arppu": 268.61,
-      "recharge": 953354.4
-    },
-    {
-      "date": "2026-06-21",
-      "totR": 955032.62,
-      "totPU": 3817,
-      "totp": 25.15,
+      "date": "2026-06-25",
+      "totR": 1205848.76,
+      "totPU": 3765,
+      "totp": 24.01,
       "newp": 12.75,
-      "arppu": 266.01,
-      "recharge": 988239.6
+      "arppu": 327.79,
+      "recharge": 1209092
     },
     {
-      "date": "2026-06-22",
-      "totR": 1368082.06,
-      "totPU": 3936,
-      "totp": 25.17,
-      "newp": 15.48,
-      "arppu": 383.31,
-      "recharge": 1497010.8
+      "date": "2026-06-26",
+      "totR": 1467663.54,
+      "totPU": 3721,
+      "totp": 23.69,
+      "newp": 11.68,
+      "arppu": 338.27,
+      "recharge": 1218854.6
     },
     {
-      "date": "2026-06-23",
-      "totR": 437274,
-      "totPU": 1970,
-      "totp": 20.04,
-      "newp": 7.37,
-      "arppu": 263.5,
-      "recharge": 506228.6
+      "date": "2026-06-27",
+      "totR": 1384881.17,
+      "totPU": 3950,
+      "totp": 24.6,
+      "newp": 12.8,
+      "arppu": 339.35,
+      "recharge": 1266544
+    },
+    {
+      "date": "2026-06-28",
+      "totR": 1081008.37,
+      "totPU": 3599,
+      "totp": 24.41,
+      "newp": 13.49,
+      "arppu": 320.66,
+      "recharge": 1104116.4
+    },
+    {
+      "date": "2026-06-29",
+      "totR": 1045387.62,
+      "totPU": 3654,
+      "totp": 23.78,
+      "newp": 13.5,
+      "arppu": 296.06,
+      "recharge": 1041152.6
+    },
+    {
+      "date": "2026-06-30",
+      "totR": 1169337.14,
+      "totPU": 3774,
+      "totp": 23.79,
+      "newp": 16.34,
+      "arppu": 375.14,
+      "recharge": 1374340.8
+    },
+    {
+      "date": "2026-07-01",
+      "totR": 1665434.31,
+      "totPU": 4270,
+      "totp": 25.89,
+      "newp": 17.1,
+      "arppu": 415.93,
+      "recharge": 1789996.6
+    },
+    {
+      "date": "2026-07-02",
+      "totR": 749710.69,
+      "totPU": 2538,
+      "totp": 21,
+      "newp": 14.39,
+      "arppu": 377.6,
+      "recharge": 924065.4
     }
   ],
   "tiers": [],
   "top": [
     {
-      "channelId": "AU501739",
-      "revenue": 147607.1,
-      "share": 1.87
+      "channelId": "AU502247",
+      "revenue": 443461.96,
+      "share": 5.26
     },
     {
-      "channelId": "AU504024",
-      "revenue": 138873.6,
-      "share": 1.76
+      "channelId": "AU501911",
+      "revenue": 172333.45,
+      "share": 2.04
     },
     {
-      "channelId": "AU502937",
-      "revenue": 116889.3,
-      "share": 1.48
+      "channelId": "AU501818",
+      "revenue": 166689.22,
+      "share": 1.98
     },
     {
-      "channelId": "UL404656",
-      "revenue": 98875.5,
-      "share": 1.25
+      "channelId": "AU502099",
+      "revenue": 137617,
+      "share": 1.63
     },
     {
-      "channelId": "AU502937",
-      "revenue": 91075.9,
-      "share": 1.16
+      "channelId": "AU502980",
+      "revenue": 131909.5,
+      "share": 1.56
     },
     {
-      "channelId": "AU502472",
-      "revenue": 80335.4,
-      "share": 1.02
+      "channelId": "AU502482",
+      "revenue": 129127.38,
+      "share": 1.53
     }
   ],
   "evaluation": {
@@ -144,9 +251,9 @@
     "giniLabel": "竞争充分（健康）",
     "source": "top",
     "conc": {
-      "cr3": 5.11,
-      "cr10": 8.54,
-      "hhi": 12.73,
+      "cr3": 9.28,
+      "cr10": 14,
+      "hhi": 43.18,
       "available": true,
       "topCount": 6
     }

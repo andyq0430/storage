@@ -25,6 +25,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .card h3 { font-size: 16px; margin: 24px 0 14px; color: #555; }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 24px; }
 .metric-card { background: linear-gradient(135deg, #0C6B5A 0%, #094f43 100%); color: white; padding: 24px; border-radius: 14px; box-shadow: 0 6px 20px rgba(12,107,90,0.4); }
+.metric-card.highlight { background: linear-gradient(135deg, #BC7314 0%, #9A5A10 100%); box-shadow: 0 6px 20px rgba(188,115,20,0.4); }
 .metric-card .label { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
 .metric-card .value { font-size: 32px; font-weight: 800; }
 .metric-card .change { font-size: 13px; margin-top: 10px; font-weight: 600; }
@@ -45,6 +46,7 @@ tr:hover { background: #f8f9fb; }
 .neg { color: #AE3E2D; font-weight: 600; }
 .decomposition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
 .dec-item { background: #f8f9fb; padding: 20px; border-radius: 10px; text-align: center; }
+.dec-item.highlight { border: 2px solid #BC7314; }
 .dec-label { font-size: 12px; color: #666; margin-bottom: 8px; }
 .dec-value { font-size: 22px; font-weight: 700; font-family: monospace; color: #333; }
 .dec-pct { font-size: 14px; color: #999; margin-top: 4px; }
@@ -63,8 +65,8 @@ tr:hover { background: #f8f9fb; }
 <div class="container">
 <header class="header">
 <h1>VV渠道活跃度LMDI-I分解报告</h1>
-<div class="meta">数据期间：2026-06-17 ~ 2026-06-21 | 生成时间：2026/6/25 09:18:47</div>
-<div class="version-badge">LMDI-I模型</div>
+<div class="meta">数据期间：2026-06-25 ~ 2026-07-01 | 生成时间：2026/7/2 17:35:04</div>
+<div class="version-badge">v5.3</div>
 </header>
 
 <div class="tabs">
@@ -76,16 +78,16 @@ tr:hover { background: #f8f9fb; }
 
 <div id="overview" class="tab-content active">
 <div class="metrics-grid">
-<div class="metric-card"><div class="label">总时长变化</div><div class="value">+-9.59%</div><div class="change up">-3978小时</div></div>
-<div class="metric-card"><div class="label">规模效应(进房)</div><div class="value">150.5%</div><div class="change neutral">贡献占比</div></div>
-<div class="metric-card"><div class="label">强度效应(人均)</div><div class="value">50.5%</div><div class="change neutral">主导因素</div></div>
-<div class="metric-card"><div class="label">进房人数变化</div><div class="value">-14.09%</div><div class="change down">-2426</div></div>
+<div class="metric-card"><div class="label">总时长变化</div><div class="value">-28.94%</div><div class="change down">-3246小时</div></div>
+<div class="metric-card"><div class="label">规模效应(进房)</div><div class="value">93.6%</div><div class="change neutral">贡献占比</div></div>
+<div class="metric-card "><div class="label">强度效应(人均)</div><div class="value">6.4%</div><div class="change neutral">主导因素</div></div>
+<div class="metric-card"><div class="label">进房人数变化</div><div class="value">-27.37%</div><div class="change down">-4003</div></div>
 </div>
 
 <div class="card">
 <h2>核心发现</h2>
 <div class="insight-box scale">
-<h3>规模效应主导</h3><p>总时长增加主要原因是<strong>进房人数增加</strong>（贡献150.5%）</p><p>进房人数从17,221增至14,795</p>
+<h3>规模效应主导</h3><p>总时长变化主要原因是<strong>进房人数变化</strong>（贡献93.6%）</p><p>进房人数从14,628变为10,625</p>
 </div>
 </div>
 </div>
@@ -94,19 +96,19 @@ tr:hover { background: #f8f9fb; }
 <div class="card">
 <h2>LMDI-I分解结果</h2>
 <table>
-<thead><tr><th>指标</th><th>上期(2026-06-17)</th><th>本期(2026-06-21)</th><th>变化</th></tr></thead>
+<thead><tr><th>指标</th><th>上期(2026-06-25)</th><th>本期(2026-07-01)</th><th>变化</th></tr></thead>
 <tbody>
-<tr><td>进房人数</td><td>17,221</td><td>14,795</td><td class="neg">-2426</td></tr>
-<tr><td>人均时长(分钟)</td><td>144.47</td><td>152.03</td><td class="pos">+7.56</td></tr>
-<tr><td>总时长(分钟)</td><td>2,487,917.87</td><td>2,249,209.875</td><td class="neg">-238,707.995</td></tr>
+<tr><td>进房人数</td><td>14,628</td><td>10,625</td><td class="neg">-4003</td></tr>
+<tr><td>人均时长(分钟)</td><td>46.00</td><td>45.00</td><td class="neg">-1.00</td></tr>
+<tr><td>总时长(分钟)</td><td>672,888</td><td>478,125</td><td class="neg">-194,763</td></tr>
 </tbody>
 </table>
 
 <h3>分解贡献</h3>
 <div class="decomposition-grid">
-<div class="dec-item"><div class="dec-label">总时长变化</div><div class="dec-value">-3978小时</div><div class="dec-pct">-9.59%</div></div>
-<div class="dec-item"><div class="dec-label">规模效应(进房)</div><div class="dec-value">-5989小时</div><div class="dec-pct">150.5%</div></div>
-<div class="dec-item"><div class="dec-label">强度效应(人均)</div><div class="dec-value">+2011小时</div><div class="dec-pct ">50.5%</div></div>
+<div class="dec-item"><div class="dec-label">总时长变化</div><div class="dec-value">-3246小时</div><div class="dec-pct">-28.94%</div></div>
+<div class="dec-item"><div class="dec-label">规模效应(进房)</div><div class="dec-value">-3037小时</div><div class="dec-pct">93.6%</div></div>
+<div class="dec-item "><div class="dec-label">强度效应(人均)</div><div class="dec-value">-209小时</div><div class="dec-pct ">6.4%</div></div>
 </div>
 </div>
 </div>
@@ -117,7 +119,7 @@ tr:hover { background: #f8f9fb; }
 <table>
 <thead><tr><th>日期</th><th>DAU</th><th>进房人数</th><th>人均时长(分钟)</th><th>总时长(小时)</th></tr></thead>
 <tbody>
-<tr><td>2026-06-17</td><td>16,986</td><td>17,221</td><td>144.47</td><td>41465</td></tr><tr><td>2026-06-18</td><td>16,459</td><td>16,599</td><td>146.22</td><td>40453</td></tr><tr><td>2026-06-19</td><td>15,226</td><td>14,931</td><td>151.89</td><td>37798</td></tr><tr><td>2026-06-20</td><td>14,546</td><td>14,251</td><td>155.63</td><td>36966</td></tr><tr><td>2026-06-21</td><td>15,175</td><td>14,795</td><td>152.03</td><td>37487</td></tr>
+<tr><td>2026-06-25</td><td>15,681</td><td>14,628</td><td>46.00</td><td>11215</td></tr><tr><td>2026-06-26</td><td>15,708</td><td>14,714</td><td>46.00</td><td>11281</td></tr><tr><td>2026-06-27</td><td>16,055</td><td>15,054</td><td>46.50</td><td>11667</td></tr><tr><td>2026-06-28</td><td>14,741</td><td>9,628</td><td>47.50</td><td>7622</td></tr><tr><td>2026-06-29</td><td>15,366</td><td>9,898</td><td>47.00</td><td>7753</td></tr><tr><td>2026-06-30</td><td>15,862</td><td>10,196</td><td>46.00</td><td>7817</td></tr><tr><td>2026-07-01</td><td>16,496</td><td>10,625</td><td>45.00</td><td>7969</td></tr>
 </tbody>
 </table>
 </div>
@@ -129,25 +131,25 @@ tr:hover { background: #f8f9fb; }
 <div class="chart-box">
 <svg viewBox="0 0 400 250" class="pie-svg">
 
-<rect x="50" y="-25.802321652191097" width="120" height="225.8023216521911" fill="#0C6B5A" rx="4"/>
+<rect x="50" y="59.648145860517246" width="120" height="140.35185413948275" fill="#0C6B5A" rx="4"/>
 <text x="110" y="230" text-anchor="middle" font-size="12" fill="#666">规模效应</text>
-<text x="110" y="-35.8023216521911" text-anchor="middle" font-size="14" fill="#0C6B5A" font-weight="700">150.5%</text>
+<text x="110" y="49.648145860517246" text-anchor="middle" font-size="14" fill="#0C6B5A" font-weight="700">93.6%</text>
 
-<rect x="230" y="124.1976783478099" width="120" height="75.8023216521901" fill="#BC7314" rx="4"/>
+<rect x="230" y="190.35185413948304" width="120" height="9.648145860516966" fill="#BC7314" rx="4"/>
 <text x="290" y="230" text-anchor="middle" font-size="12" fill="#666">强度效应</text>
-<text x="290" y="114.1976783478099" text-anchor="middle" font-size="14" fill="#BC7314" font-weight="700">50.5%</text>
+<text x="290" y="180.35185413948304" text-anchor="middle" font-size="14" fill="#BC7314" font-weight="700">6.4%</text>
 
 </svg>
 </div>
 <div class="legend">
-<span class="legend-item scale">规模效应: 150.5%</span>
-<span class="legend-item intensity">强度效应: 50.5%</span>
+<span class="legend-item scale">规模效应: 93.6%</span>
+<span class="legend-item intensity">强度效应: 6.4%</span>
 </div>
 </div>
 </div>
 
 <footer class="footer">
-<p>Powered by OpenClaw vv-active-decomposition | LMDI-I模型</p>
+<p>Powered by OpenClaw vv-active-decomposition v5.3 | LMDI-I模型 | 数据新鲜度检查</p>
 </footer>
 </div>
 

@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "extractedAt": "2026-07-02T17:00:00.000Z",
+    "method": "browser-tool",
+    "platform": "vv",
+    "status": "success"
+  },
+  "userDataOverview": [
+    { "date": "2026-07-01", "activeUsers": 16496, "newUsers": 1556, "oldUsers": 14940, "churned14d": 50786 },
+    { "date": "2026-06-30", "activeUsers": 15862, "newUsers": 1695, "oldUsers": 14167, "churned14d": 50042 },
+    { "date": "2026-06-29", "activeUsers": 15366, "newUsers": 1407, "oldUsers": 13959, "churned14d": 49847 },
+    { "date": "2026-06-28", "activeUsers": 14741, "newUsers": 1045, "oldUsers": 13696, "churned14d": 49592 },
+    { "date": "2026-06-27", "activeUsers": 16055, "newUsers": 1781, "oldUsers": 14274, "churned14d": 49603 },
+    { "date": "2026-06-26", "activeUsers": 15708, "newUsers": 1541, "oldUsers": 14167, "churned14d": 49426 },
+    { "date": "2026-06-25", "activeUsers": 15681, "newUsers": 1482, "oldUsers": 14199, "churned14d": 49757 }
+  ],
+  "userDuration": [
+    { "date": "2026-07-01", "userId": "110265124", "nickname": "神灯🧞‍♂️", "videoDuration": "2小时50分钟43秒(1.92%)", "voiceDuration": "8小时57分钟52秒(6.04%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "110327027", "nickname": "九", "videoDuration": "1小时2分钟47秒(0.71%)", "voiceDuration": "0小时31分钟55秒(0.36%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "110860965", "nickname": "十里无她", "videoDuration": "4小时9分钟48秒(2.81%)", "voiceDuration": "0小时16分钟48秒(0.19%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "113423773", "nickname": "冰山", "videoDuration": "0小时0分钟4秒(0%)", "voiceDuration": "2小时50分钟20秒(1.91%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "113748616", "nickname": "青衫ヾ", "videoDuration": "0小时0分钟0秒(0%)", "voiceDuration": "0小时43分钟44秒(0.49%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "113781899", "nickname": "何以解忧🙄️", "videoDuration": "0小时0分钟0秒(0%)", "voiceDuration": "7小时30分钟4秒(5.05%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "113976257", "nickname": "能不能不吃饭也可以活", "videoDuration": "0小时4分钟34秒(0.05%)", "voiceDuration": "8小时30分钟57秒(5.74%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "114276680", "nickname": "大河霸霸", "videoDuration": "5小时23分钟52秒(3.64%)", "voiceDuration": "0小时44分钟51秒(0.5%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "115340399", "nickname": "𝒜𝓌精分²¹⁶歌", "videoDuration": "0小时0分钟0秒(0%)", "voiceDuration": "0小时55分钟38秒(0.62%)", "gameDuration": "0小时0分钟0秒(0%)" },
+    { "date": "2026-07-01", "userId": "116209050", "nickname": "富婆", "videoDuration": "3小时27分钟59秒(2.34%)", "voiceDuration": "2小时2分钟8秒(1.37%)", "gameDuration": "0小时0分钟0秒(0%)" }
+  ],
+  "userConsumption": [
+    { "date": "2026-07-01", "userId": "110265124", "nickname": "神灯🧞‍♂️", "giftCount": 167, "totalRevenue": 11827, "videoRevenue": 503.5, "voiceRevenue": 11323.5, "privateRevenue": 0, "diamondRevenue": 11, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "110327027", "nickname": "九", "giftCount": 5, "totalRevenue": 740, "videoRevenue": 0, "voiceRevenue": 740, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "110860965", "nickname": "十里无她", "giftCount": 186, "totalRevenue": 39737.2, "videoRevenue": 13246.2, "voiceRevenue": 26491, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "113748616", "nickname": "青衫ヾ", "giftCount": 8, "totalRevenue": 900, "videoRevenue": 0, "voiceRevenue": 900, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "113781899", "nickname": "何以解忧🙄️", "giftCount": 281, "totalRevenue": 19381.7, "videoRevenue": 0, "voiceRevenue": 19381.7, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 1144, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "113976257", "nickname": "能不能不吃饭也可以活", "giftCount": 109, "totalRevenue": 6134, "videoRevenue": 0, "voiceRevenue": 6134, "privateRevenue": 0, "diamondRevenue": 1671, "luckyBagRevenue": 10, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "114276680", "nickname": "大河霸霸", "giftCount": 68, "totalRevenue": 3747.2, "videoRevenue": 2665, "voiceRevenue": 357, "privateRevenue": 0, "diamondRevenue": 25.2, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "115340399", "nickname": "𝒜𝓌精分²¹⁶歌", "giftCount": 2, "totalRevenue": 400, "videoRevenue": 0, "voiceRevenue": 400, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 0, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "116209050", "nickname": "富婆", "giftCount": 94, "totalRevenue": 4692.5, "videoRevenue": 4692.5, "voiceRevenue": 0, "privateRevenue": 0, "diamondRevenue": 5.2, "luckyBagRevenue": 1330, "gameRevenue": 0 },
+    { "date": "2026-07-01", "userId": "116285759", "nickname": "晚秋", "giftCount": 190, "totalRevenue": 2049.1, "videoRevenue": 200, "voiceRevenue": 1849.1, "privateRevenue": 0, "diamondRevenue": 0, "luckyBagRevenue": 0, "gameRevenue": 0 }
+  ],
+  "summary": {
+    "totalRecords": 7,
+    "avgActiveUsers": 15651,
+    "avgNewUsers": 1484,
+    "avgOldUsers": 14195,
+    "avgChurned14d": 49994
+  }
+}

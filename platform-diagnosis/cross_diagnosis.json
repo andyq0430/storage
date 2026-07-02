@@ -1,45 +1,70 @@
 {
   "meta": {
-    "stamp": "2026-06-24T06:50:21.398Z",
+    "stamp": "2026-06-26T03:16:13.346Z",
     "dateRange": {
-      "yesterday": "2026-06-23",
-      "today": "2026-06-24",
-      "lastWeek": "2026-06-17 ~ 2026-06-23"
+      "yesterday": "2026-06-25",
+      "today": "2026-06-26"
     }
   },
   "signals": {
     "acq": {
-      "dir": "↑",
+      "dir": "↓",
       "level": "中",
-      "_change": "5.82",
+      "_change": "-4.72",
       "ltvD0Trend": "↓",
       "payRateTrend": "↓"
     },
     "active": {
-      "dir": "→",
+      "dir": "↑",
       "dominant": "规模效应",
-      "_change": "1.18"
+      "_change": "1.26"
     },
     "revenue": {
       "dir": "↑",
       "dominant": "ARPPU效应",
       "gini": 0.65,
-      "_change": "9.61"
+      "_change": "16.69"
     },
     "retention": {
       "dir": "→",
       "dominant": "新留存效应",
-      "_change": "0.65"
-    }
+      "_change": "0.88"
+    },
+    "hhi": 5746
   },
-  "matches": [],
+  "matches": [
+    {
+      "rule": 14,
+      "name": "获量下滑但营收增长",
+      "risk": "中",
+      "hypothesis": "存量用户贡献突出，新用户转化待提升",
+      "owner": "投放组",
+      "detail": "新增用户下滑4.7%，但营收增长16.7%，存量用户贡献突出"
+    },
+    {
+      "rule": 15,
+      "name": "活跃增长获量下滑",
+      "risk": "中",
+      "hypothesis": "存量活跃正常，获量渠道需关注",
+      "owner": "投放组",
+      "detail": "活跃用户增长1.3%，但新增下滑4.7%，获量渠道需关注"
+    },
+    {
+      "rule": 16,
+      "name": "高集中度风险",
+      "risk": "高",
+      "hypothesis": "营收过度依赖单一平台",
+      "owner": "运营组",
+      "detail": "HHI指数5746，营收过度集中单一平台，结构性风险极高"
+    }
+  ],
   "healthScore": {
-    "total": 80,
-    "level": "健康",
+    "total": 76,
+    "level": "关注",
     "byDim": {
-      "acq": 80,
+      "acq": 65,
       "active": 80,
-      "revenue": 80,
+      "revenue": 75,
       "retention": 80
     },
     "weights": {
@@ -50,23 +75,16 @@
     }
   },
   "structureRisk": {
-    "hhi": 6844,
+    "hhi": 5746,
     "concentrationRisk": "极高",
     "concentrationLevel": "危急",
     "dominantPlatform": {
       "name": "vv",
-      "share": 80.63
+      "share": 74.41
     },
     "trendAnalysis": {
       "improving": [],
-      "declining": [
-        "vv",
-        "觅光",
-        "萤火",
-        "可乐语音",
-        "椰奶",
-        "青鸾直播"
-      ],
+      "declining": [],
       "stable": []
     },
     "platformCount": 6
@@ -74,167 +92,189 @@
   "detailedRecommendations": [],
   "rawData": {
     "totals": {
-      "revenueYesterday": 1650276.09,
-      "acquisitionYesterday": 0,
-      "activeYesterday": 0,
-      "retentionYesterday": "30.00"
+      "revenueYesterday": 1658504.05,
+      "acquisitionYesterday": 2888,
+      "activeYesterday": 25444,
+      "retentionYesterday": "35.42"
     },
     "platforms": [
       {
         "platform": "vv",
         "revenue": {
-          "yesterday": 1352965.8,
-          "share": 80.63,
-          "trend": "▼ 11.81%",
-          "lastWeek": 8851621.15,
-          "lastMonth": 38109584.72
+          "yesterday": 1234124.86,
+          "share": 74.41,
+          "trend": "▲8.34%",
+          "_change": 8.34,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "acquisition": {
-          "yesterday": 1408,
-          "trend": "+8.81%",
-          "lastWeek": 11850,
-          "lastMonth": 62963
+          "yesterday": 1482,
+          "trend": "▼1.79%",
+          "_change": -1.79,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "active": {
-          "yesterday": 15637,
-          "trend": "+3.04%",
-          "lastWeek": 112385,
-          "lastMonth": 493301
+          "yesterday": 15681,
+          "trend": "▼1.1%",
+          "_change": -1.1,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
-        "share": "80.63"
+        "share": "74.41"
       },
       {
         "platform": "觅光",
         "revenue": {
-          "yesterday": 140784.2,
-          "share": 9.11,
-          "trend": "▼ 5.27%",
-          "lastWeek": 1334152.8,
-          "lastMonth": 4713850.4
+          "yesterday": 181451.41,
+          "share": 10.94,
+          "trend": "▲29.8%",
+          "_change": 29.8,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "acquisition": {
-          "yesterday": 489,
-          "trend": "-7.91%",
-          "lastWeek": 3344,
-          "lastMonth": 14570
+          "yesterday": 475,
+          "trend": "▼9%",
+          "_change": -9,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "active": {
-          "yesterday": 4053,
-          "trend": "-0.71%",
-          "lastWeek": 27926,
-          "lastMonth": 126435
+          "yesterday": 3935,
+          "trend": "▼1.92%",
+          "_change": -1.92,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
-        "share": "9.11"
+        "share": "10.94"
       },
       {
         "platform": "萤火",
         "revenue": {
-          "yesterday": 62839,
-          "share": 4.18,
-          "trend": "▼ 14.03%",
-          "lastWeek": 646135,
-          "lastMonth": 2567715
+          "yesterday": 126088.92,
+          "share": 7.6,
+          "trend": "▲106.98%",
+          "_change": 106.98,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "acquisition": {
-          "yesterday": 341,
-          "trend": "-10.26%",
-          "lastWeek": 2259,
-          "lastMonth": 10202
+          "yesterday": 427,
+          "trend": "▲3.64%",
+          "_change": 3.64,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "active": {
-          "yesterday": 3166,
-          "trend": "-1.34%",
-          "lastWeek": 21474,
-          "lastMonth": 93243
+          "yesterday": 3222,
+          "trend": "▲2.12%",
+          "_change": 2.12,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
-        "share": "4.18"
-      },
-      {
-        "platform": "可乐语音",
-        "revenue": {
-          "yesterday": 48453,
-          "share": 3.35,
-          "trend": "▲ 63.74%",
-          "lastWeek": 250898,
-          "lastMonth": 1246448
-        },
-        "acquisition": {
-          "yesterday": 99,
-          "trend": "+22.22%",
-          "lastWeek": 588,
-          "lastMonth": 2662
-        },
-        "active": {
-          "yesterday": 780,
-          "trend": "+1.56%",
-          "lastWeek": 5519,
-          "lastMonth": 24917
-        },
-        "share": "3.35"
+        "share": "7.60"
       },
       {
         "platform": "椰奶",
         "revenue": {
-          "yesterday": 39071,
-          "share": 2.5,
-          "trend": "▲ 1.52%",
-          "lastWeek": 284920,
-          "lastMonth": 1347481.63
+          "yesterday": 88516.2,
+          "share": 5.34,
+          "trend": "▲106.82%",
+          "_change": 106.82,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "acquisition": {
-          "yesterday": 178,
-          "trend": "+27.14%",
-          "lastWeek": 986,
-          "lastMonth": 4658
+          "yesterday": 162,
+          "trend": "▼16.06%",
+          "_change": -16.06,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "active": {
-          "yesterday": 1058,
-          "trend": "-1.31%",
-          "lastWeek": 7194,
-          "lastMonth": 28160
+          "yesterday": 1140,
+          "trend": "▼2.4%",
+          "_change": -2.4,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
-        "share": "2.50"
+        "share": "5.34"
+      },
+      {
+        "platform": "可乐语音",
+        "revenue": {
+          "yesterday": 26573.16,
+          "share": 1.6,
+          "trend": "▼21.18%",
+          "_change": -21.18,
+          "lastWeek": 0,
+          "lastMonth": 0
+        },
+        "acquisition": {
+          "yesterday": 82,
+          "trend": "▼20.39%",
+          "_change": -20.39,
+          "lastWeek": 0,
+          "lastMonth": 0
+        },
+        "active": {
+          "yesterday": 769,
+          "trend": "▼1.54%",
+          "_change": -1.54,
+          "lastWeek": 0,
+          "lastMonth": 0
+        },
+        "share": "1.60"
       },
       {
         "platform": "青鸾直播",
         "revenue": {
-          "yesterday": 3579,
-          "share": 0.23,
-          "trend": "▲ 5.43%",
-          "lastWeek": 969,
-          "lastMonth": 285997
+          "yesterday": 1749.5,
+          "share": 0.11,
+          "trend": "▼63.88%",
+          "_change": -63.88,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "acquisition": {
-          "yesterday": 253,
-          "trend": "+163.54%",
-          "lastWeek": 415,
-          "lastMonth": 2095
+          "yesterday": 260,
+          "trend": "▼10.96%",
+          "_change": -10.96,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
         "active": {
-          "yesterday": 526,
-          "trend": "+87.19%",
-          "lastWeek": 1409,
-          "lastMonth": 17973
+          "yesterday": 697,
+          "trend": "▼1.27%",
+          "_change": -1.27,
+          "lastWeek": 0,
+          "lastMonth": 0
         },
-        "share": "0.23"
+        "share": "0.11"
       }
     ],
     "kpiSummary": {
       "营收": {
-        "value": "1650276.09",
-        "change": "▼ 9.61%"
+        "value": 1658504.05,
+        "change": "▲16.69%",
+        "_change": 16.69
       },
       "新增": {
-        "value": "2929",
-        "change": "▲ 5.82%"
+        "value": 2888,
+        "change": "▼4.72%",
+        "_change": -4.72
       },
       "活跃": {
-        "value": "25423",
-        "change": "▲ 1.18%"
+        "value": 25444,
+        "change": "▲1.26%",
+        "_change": 1.26
       },
       "留存": {
-        "value": "36.93",
-        "change": "▼ 0.65%"
+        "value": 35.42,
+        "change": "▲0.88%",
+        "_change": 0.88
       }
     }
   }

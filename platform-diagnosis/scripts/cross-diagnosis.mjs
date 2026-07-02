@@ -41,16 +41,25 @@ const totalAcquisition = parseInt(totals.acquisitionYesterday || totals['昨日�
 const totalActive = parseInt(totals.activeYesterday || totals['昨日活跃'] || rawData.meta?.totalActive || 0);
 const avgRetention = parseFloat(totals.retentionYesterday || rawData.meta?.avgRetention || 30);
 
-// 从KPI卡片提取变化率
-const acqChange = parseFloat(kpi['新增']?.change?.replace(/[^0-9.-]/g, '') || kpi.acq?._change || 0);
-const activeChange = parseFloat(kpi['活跃']?.change?.replace(/[^0-9.-]/g, '') || kpi.active?._change || 0);
-const revenueChange = parseFloat(kpi['营收']?.change?.replace(/[^0-9.-]/g, '') || kpi.revenue?._change || 0);
-const retentionChange = parseFloat(kpi['留存']?.change?.replace(/[^0-9.-]/g, '') || kpi.retention?._change || 0);
+// 解析变化率（正确处理箭头符号）
+function parseChange(str, fallback = 0) {
+  if (typeof str === 'number') return str;
+  if (!str) return fallback;
+  // 检查是否有下滑符号
+  const isDown = str.includes('▼') || str.includes('↓') || str.includes('-');
+  const num = parseFloat(str.replace(/[^0-9.]/g, '')) || fallback;
+  return isDown ? -Math.abs(num) : Math.abs(num);
+}
 
-// 判断方向
+const acqChange = kpi['新增']?._change ?? parseChange(kpi['新增']?.change, 0);
+const activeChange = kpi['活跃']?._change ?? parseChange(kpi['活跃']?.change, 0);
+const revenueChange = kpi['营收']?._change ?? parseChange(kpi['营收']?.change, 0);
+const retentionChange = kpi['留存']?._change ?? parseChange(kpi['留存']?.change, 0);
+
+// 判断方向（阈值调整为1%以更敏感）
 function getDir(change) {
   const v = parseFloat(change);
-  if (isNaN(v) || Math.abs(v) < 3) return '→';
+  if (isNaN(v) || Math.abs(v) < 1) return '→';
   return v > 0 ? '↑' : '↓';
 }
 
@@ -73,34 +82,38 @@ function calcPlatformShares(platforms) {
   const totalRev = platforms.reduce((sum, p) => sum + (p.revenue?.yesterday || p.revenue || 0), 0);
   if (totalRev === 0) return platforms;
   
-  // 从页面提取的原始文本中解析数据
+  // 从页面提取的原始数据中解析数据
   return platforms.map(p => {
     const rev = p.revenue?.yesterday || p.revenue || 0;
     const share = p.revenue?.share || parseFloat(p.share) || (rev / totalRev * 100);
     
-    // 从数据中提取环比信息
-    const revenueTrend = p.revenue?.trend || '0%';
-    const acquisitionTrend = p.acquisition?.trend || '0%';
-    const activeTrend = p.active?.trend || '0%';
+    // 从数据中提取环比信息（使用 _change 字段）
+    const revenueChange = p.revenue?._change || 0;
+    const revenueTrend = revenueChange !== 0 
+      ? (revenueChange > 0 ? `▲${Math.abs(revenueChange)}%` : `▼${Math.abs(revenueChange)}%`) 
+      : '0%';
     
     return {
-      platform: p.platform,
+      platform: p.name || p.platform || '未知',
       revenue: {
         yesterday: rev,
         share: share,
         trend: revenueTrend,
+        _change: revenueChange,
         lastWeek: p.revenue?.lastWeek || 0,
         lastMonth: p.revenue?.lastMonth || 0
       },
       acquisition: {
         yesterday: p.acquisition?.yesterday || 0,
-        trend: acquisitionTrend,
+        trend: p.acquisition?._change !== undefined ? (p.acquisition._change > 0 ? `▲${Math.abs(p.acquisition._change)}%` : p.acquisition._change < 0 ? `▼${Math.abs(p.acquisition._change)}%` : '0%') : (p.acquisition?.trend || '0%'),
+        _change: p.acquisition?._change || 0,
         lastWeek: p.acquisition?.lastWeek || 0,
         lastMonth: p.acquisition?.lastMonth || 0
       },
       active: {
         yesterday: p.active?.yesterday || 0,
-        trend: activeTrend,
+        trend: p.active?._change !== undefined ? (p.active._change > 0 ? `▲${Math.abs(p.active._change)}%` : p.active._change < 0 ? `▼${Math.abs(p.active._change)}%` : '0%') : (p.active?.trend || '0%'),
+        _change: p.active?._change || 0,
         lastWeek: p.active?.lastWeek || 0,
         lastMonth: p.active?.lastMonth || 0
       },
@@ -115,7 +128,7 @@ const rules = [
   { id: 2, name: '获量规模下滑', condition: (s) => s.acq.dir === '↓' && s.active.dir === '↓', risk: '高', hypothesis: '获量不足', owner: '投放组' },
   { id: 3, name: '活跃度塌方', condition: (s) => s.active.dir === '↓' && s.revenue.dir === '↓', risk: '高', hypothesis: '活跃→营收传导', owner: '运营组' },
   { id: 4, name: '鲸鱼依赖加剧', condition: (s) => s.active.dir === '↓' && (s.revenue.dir === '→' || s.revenue.dir === '↑') && s.gini >= 0.6, risk: '极高', hypothesis: '收入依赖大R', owner: '运营组' },
-  { id: 5, name: '付费转化下滑', condition: (s) => s.revenue.dir === '↓' && s.payRate.dir === '↓', risk: '高', hypothesis: '付费点问题', owner: '产品组' },
+  { id: 5, name: '付费转化下滑', condition: (s) => s.revenue.dir === '↓' && s.payRate?.dir === '↓', risk: '高', hypothesis: '付费点问题', owner: '产品组' },
   { id: 6, name: '存量用户流失', condition: (s) => s.retention.dir === '↓' && s.retention.dominant === '老留存效应', risk: '高', hypothesis: '老用户流失', owner: '运营组' },
   { id: 7, name: '新留存拖累', condition: (s) => s.retention.dir === '↓' && s.retention.dominant === '新留存效应', risk: '中', hypothesis: '新用户引导问题', owner: '产品组' },
   { id: 8, name: 'ARPPU提升对冲', condition: (s) => s.payUsers?.dir === '↓' && s.revenue.dir === '→', risk: '中', hypothesis: '客单价提升', owner: '运营组' },
@@ -123,10 +136,15 @@ const rules = [
   { id: 10, name: '营收下滑但用户稳', condition: (s) => s.revenue.dir === '↓' && s.active.dir === '→', risk: '高', hypothesis: '付费点/定价问题', owner: '产品组' },
   { id: 11, name: '全盘性下滑', condition: (s) => s.acq.dir === '↓' && s.active.dir === '↓' && s.revenue.dir === '↓' && s.retention.dir === '↓', risk: '极高', hypothesis: '系统性问题', owner: '全员' },
   { id: 12, name: '全维增长', condition: (s) => s.acq.dir === '↑' && s.active.dir === '↑' && s.revenue.dir === '↑' && s.retention.dir === '↑', risk: '低', hypothesis: '健康增长', owner: '-' },
-  { id: 13, name: '稳中向好', condition: (s) => s.acq.dir === '→' && s.active.dir === '→' && s.revenue.dir === '↑' && s.retention.dir === '→', risk: '低', hypothesis: '优化见效', owner: '-' }
+  { id: 13, name: '稳中向好', condition: (s) => s.acq.dir === '→' && s.active.dir === '→' && s.revenue.dir === '↑' && s.retention.dir === '→', risk: '低', hypothesis: '优化见效', owner: '-' },
+  { id: 14, name: '获量下滑但营收增长', condition: (s) => s.acq.dir === '↓' && s.revenue.dir === '↑', risk: '中', hypothesis: '存量用户贡献突出，新用户转化待提升', owner: '投放组' },
+  { id: 15, name: '活跃增长获量下滑', condition: (s) => s.active.dir === '↑' && s.acq.dir === '↓', risk: '中', hypothesis: '存量活跃正常，获量渠道需关注', owner: '投放组' },
+  { id: 16, name: '高集中度风险', condition: (s) => s.hhi >= 5000, risk: '高', hypothesis: '营收过度依赖单一平台', owner: '运营组' }
 ];
 
-// 构建信号
+// 构建信号（包含HHI用于集中度诊断）
+const hhi = calcHHI(platforms);
+
 const signals = {
   acq: {
     dir: getDir(acqChange),
@@ -150,7 +168,8 @@ const signals = {
     dir: getDir(retentionChange),
     dominant: '新留存效应',
     _change: retentionChange.toFixed(2)
-  }
+  },
+  hhi: hhi
 };
 
 // 匹配规则
@@ -164,12 +183,18 @@ const matches = rules.filter(r => r.condition(signals)).map(r => ({
 }));
 
 function generateDetail(rule, signals, data) {
-  const kpi = data.kpiSummary || {};
+  const kpi = data.kpiSummary || data.kpiCards || {};
   switch (rule.id) {
     case 1:
       return `新增用户增长${Math.abs(acqChange).toFixed(1)}%，但留存率下降${Math.abs(retentionChange).toFixed(1)}%，拉新质量明显下滑`;
     case 4:
       return `活跃用户下降${Math.abs(activeChange).toFixed(1)}%，但营收增长${Math.abs(revenueChange).toFixed(1)}%，基尼系数${signals.revenue.gini}，收入高度依赖大R`;
+    case 14:
+      return `新增用户下滑${Math.abs(acqChange).toFixed(1)}%，但营收增长${Math.abs(revenueChange).toFixed(1)}%，存量用户贡献突出`;
+    case 15:
+      return `活跃用户增长${Math.abs(activeChange).toFixed(1)}%，但新增下滑${Math.abs(acqChange).toFixed(1)}%，获量渠道需关注`;
+    case 16:
+      return `HHI指数${signals.hhi}，营收过度集中单一平台，结构性风险极高`;
     default:
       return `${rule.name}：${rule.hypothesis}`;
   }
@@ -219,8 +244,7 @@ function calcHealthScore(signals, matches) {
 
 const healthScore = calcHealthScore(signals, matches);
 
-// 计算结构风险
-const hhi = calcHHI(platforms);
+// 结构风险（复用已计算的hhi）
 const platformsWithShare = calcPlatformShares(platforms);
 const dominantPlatform = platformsWithShare.sort((a, b) => parseFloat(b.share) - parseFloat(a.share))[0] || { platform: 'vv', share: 75.7 };
 

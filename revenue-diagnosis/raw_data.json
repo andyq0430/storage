@@ -1,29 +1,27 @@
 {
   "meta": {
-    "extractedAt": "2026-06-23T14:45:00.000Z",
+    "extractedAt": "2026-07-02T17:30:00.000Z",
+    "method": "browser-tool",
     "platform": "vv",
-    "dateRange": {
-      "start": "2026-06-16",
-      "end": "2026-06-23"
-    }
+    "status": "success"
   },
   "days": [
-    {"date": "2026-06-23", "totR": 437274, "totPU": 1970, "totp": 20.04, "newp": 7.37, "arppu": 263.5, "recharge": 506228.6},
-    {"date": "2026-06-22", "totR": 1368082.06, "totPU": 3936, "totp": 25.17, "newp": 15.48, "arppu": 383.31, "recharge": 1497010.8},
-    {"date": "2026-06-21", "totR": 955032.62, "totPU": 3817, "totp": 25.15, "newp": 12.75, "arppu": 266.01, "recharge": 988239.6},
-    {"date": "2026-06-20", "totR": 1092222.78, "totPU": 3781, "totp": 25.99, "newp": 13.94, "arppu": 268.61, "recharge": 953354.4},
-    {"date": "2026-06-19", "totR": 1082688.62, "totPU": 3972, "totp": 26.09, "newp": 19.4, "arppu": 326.8, "recharge": 1236071.2},
-    {"date": "2026-06-18", "totR": 1259302.88, "totPU": 4228, "totp": 25.69, "newp": 20.29, "arppu": 328.02, "recharge": 1260935.6},
-    {"date": "2026-06-17", "totR": 1360489.23, "totPU": 4429, "totp": 26.07, "newp": 20.1, "arppu": 293.97, "recharge": 1349711.2},
-    {"date": "2026-06-16", "totR": 1384614.39, "totPU": 4606, "totp": 27.2, "newp": 20.7, "arppu": 349.33, "recharge": 1551821.15}
+    {"date": "2026-07-02", "totR": 749710.69, "totPU": 2538, "totp": 21.0, "newp": 14.39, "arppu": 377.6, "recharge": 924065.4},
+    {"date": "2026-07-01", "totR": 1665434.31, "totPU": 4270, "totp": 25.89, "newp": 17.1, "arppu": 415.93, "recharge": 1789996.6},
+    {"date": "2026-06-30", "totR": 1169337.14, "totPU": 3774, "totp": 23.79, "newp": 16.34, "arppu": 375.14, "recharge": 1374340.8},
+    {"date": "2026-06-29", "totR": 1045387.62, "totPU": 3654, "totp": 23.78, "newp": 13.5, "arppu": 296.06, "recharge": 1041152.6},
+    {"date": "2026-06-28", "totR": 1081008.37, "totPU": 3599, "totp": 24.41, "newp": 13.49, "arppu": 320.66, "recharge": 1104116.4},
+    {"date": "2026-06-27", "totR": 1384881.17, "totPU": 3950, "totp": 24.6, "newp": 12.8, "arppu": 339.35, "recharge": 1266544},
+    {"date": "2026-06-26", "totR": 1467663.54, "totPU": 3721, "totp": 23.69, "newp": 11.68, "arppu": 338.27, "recharge": 1218854.6},
+    {"date": "2026-06-25", "totR": 1205848.76, "totPU": 3765, "totp": 24.01, "newp": 12.75, "arppu": 327.79, "recharge": 1209092}
   ],
   "top": [
-    {"channelId": "AU501739", "revenue": 147607.1, "share": 1.87},
-    {"channelId": "AU504024", "revenue": 138873.6, "share": 1.76},
-    {"channelId": "AU502937", "revenue": 116889.3, "share": 1.48},
-    {"channelId": "UL404656", "revenue": 98875.5, "share": 1.25},
-    {"channelId": "AU502937", "revenue": 91075.9, "share": 1.16},
-    {"channelId": "AU502472", "revenue": 80335.4, "share": 1.02}
+    {"channelId": "AU502247", "revenue": 443461.96, "share": 5.26},
+    {"channelId": "AU501911", "revenue": 172333.45, "share": 2.04},
+    {"channelId": "AU501818", "revenue": 166689.22, "share": 1.98},
+    {"channelId": "AU502099", "revenue": 137617, "share": 1.63},
+    {"channelId": "AU502980", "revenue": 131909.5, "share": 1.56},
+    {"channelId": "AU502482", "revenue": 129127.38, "share": 1.53}
   ],
   "tiers": []
 }

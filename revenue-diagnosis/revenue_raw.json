@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "extractedAt": "2026-07-02T17:10:00.000Z",
+    "method": "browser-tool",
+    "platform": "vv",
+    "status": "success"
+  },
+  "summary": {
+    "yesterdayRevenue": 1776042.36,
+    "yesterdayRecharge": 1789996.6,
+    "changeRate": 25.45,
+    "direction": "up"
+  },
+  "dailyRevenue": [
+    { "date": "2026-07-02", "recharge": 854838.4, "payment": 894694.02, "revenue": 729999.59, "newUserPayment": 6948.8, "payingUsers": 2378, "newPayingUsers": 78, "payingRate": 20.54, "newUserRate": 12.94, "arppu": 376.24, "newUserArppu": 89.09, "giftRooms": 431, "giftAnchors": 825 },
+    { "date": "2026-07-01", "recharge": 1789996.6, "payment": 1776042.36, "revenue": 1665434.31, "newUserPayment": 33723.36, "payingUsers": 4270, "newPayingUsers": 266, "payingRate": 25.89, "newUserRate": 17.1, "arppu": 415.93, "newUserArppu": 126.78, "giftRooms": 530, "giftAnchors": 1444 },
+    { "date": "2026-06-30", "recharge": 1374340.8, "payment": 1415788.08, "revenue": 1169337.14, "newUserPayment": 29963.94, "payingUsers": 3774, "newPayingUsers": 277, "payingRate": 23.79, "newUserRate": 16.34, "arppu": 375.14, "newUserArppu": 108.17, "giftRooms": 472, "giftAnchors": 1266 },
+    { "date": "2026-06-29", "recharge": 1041152.6, "payment": 1081800.38, "revenue": 1045387.62, "newUserPayment": 16482.22, "payingUsers": 3654, "newPayingUsers": 190, "payingRate": 23.78, "newUserRate": 13.5, "arppu": 296.06, "newUserArppu": 86.75, "giftRooms": 482, "giftAnchors": 1276 },
+    { "date": "2026-06-28", "recharge": 1104116.4, "payment": 1154050.07, "revenue": 1081008.37, "newUserPayment": 13746.93, "payingUsers": 3599, "newPayingUsers": 141, "payingRate": 24.41, "newUserRate": 13.49, "arppu": 320.66, "newUserArppu": 97.5, "giftRooms": 468, "giftAnchors": 1196 },
+    { "date": "2026-06-27", "recharge": 1266544, "payment": 1340452.13, "revenue": 1384881.17, "newUserPayment": 19259.9, "payingUsers": 3950, "newPayingUsers": 228, "payingRate": 24.6, "newUserRate": 12.8, "arppu": 339.35, "newUserArppu": 84.47, "giftRooms": 500, "giftAnchors": 1233 },
+    { "date": "2026-06-26", "recharge": 1218854.6, "payment": 1258721.24, "revenue": 1467663.54, "newUserPayment": 17644.3, "payingUsers": 3721, "newPayingUsers": 180, "payingRate": 23.69, "newUserRate": 11.68, "arppu": 338.27, "newUserArppu": 98.02, "giftRooms": 481, "giftAnchors": 1224 },
+    { "date": "2026-06-25", "recharge": 1209092, "payment": 1234124.86, "revenue": 1205848.76, "newUserPayment": 20691.24, "payingUsers": 3765, "newPayingUsers": 189, "payingRate": 24.01, "newUserRate": 12.75, "arppu": 327.79, "newUserArppu": 109.48, "giftRooms": 515, "giftAnchors": 1304 }
+  ],
+  "cards": {
+    "active": { "value": 16496, "lastWeek": 15647, "changeRate": 1.67, "direction": "up" },
+    "newUsers": { "value": 1556, "yesterday": 1695, "changeRate": -8.2, "direction": "down" },
+    "revenue": { "value": 1776042.36, "yesterday": 1415788.08, "changeRate": 25.45, "direction": "up" },
+    "retention": { "value": 27.26, "yesterday": 28.93, "changeRate": -5.77, "direction": "down" }
+  }
+}

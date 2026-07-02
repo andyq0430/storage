@@ -1,24 +1,27 @@
 #!/usr/bin/env node
 /**
- * run-retention-diagnosis.mjs — VV渠道留存诊断主入口脚本（v4.2）
+ * run-retention-diagnosis.mjs — VV渠道留存诊断主入口脚本（v4.3）
  * 
  * 用法：
  *   node run-retention-diagnosis.mjs               # 完整流程（筛选→诊断→报告）
  *   node run-retention-diagnosis.mjs --skip-filter # 跳过数据筛选
+ *   node run-retention-diagnosis.mjs --force       # 强制使用过期数据
  *   node run-retention-diagnosis.mjs --verbose     # 详细输出
  * 
- * 流程：
- *   1. 检查 raw_data.json 是否存在
- *   2. 数据格式转换（嵌套→扁平）
- *   3. 数据筛选（filter-recent-days.mjs）
- *   4. 留存诊断分解（run-diagnosis.mjs）
- *   5. 生成HTML报告（generate-report.mjs）
+ * 返回码：
+ *   0  → 成功完成
+ *   10 → 数据过期，需要浏览器提取
+ *   1  → 其他错误
+ * 
+ * 数据新鲜度检查：
+ *   - 如果 raw_data.json 不存在 → 需要提取数据（返回码 10）
+ *   - 如果最新日期 < 当前日期-1天 → 数据过期（返回码 10）
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { spawn } from 'child_process';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,28 +30,73 @@ const SKILL_DIR = path.resolve(__dirname, '..');
 // 解析参数
 const args = process.argv.slice(2);
 const skipFilter = args.includes('--skip-filter');
+const force = args.includes('--force');
 const verbose = args.includes('--verbose');
 
+// 获取当前日期（中国时区）
+const now = new Date();
+const chinaOffset = 8 * 60; // UTC+8
+const chinaTime = new Date(now.getTime() + chinaOffset * 60 * 1000);
+const todayDate = chinaTime.toISOString().split('T')[0];
+
 console.log('━'.repeat(70));
-console.log('VV渠道留存诊断 v4.2');
+console.log('VV渠道留存诊断 v4.3');
 console.log('━'.repeat(70));
 console.log('');
+console.log(`📅 当前日期: ${todayDate}`);
 
 // 步骤1：检查数据文件
 const rawPath = path.join(SKILL_DIR, 'raw_data.json');
 const resultsPath = path.join(SKILL_DIR, 'results.json');
 const reportPath = path.join(SKILL_DIR, 'report', 'index.html');
 
+// 数据不存在
 if (!fs.existsSync(rawPath)) {
+  console.log('');
   console.log('❌ raw_data.json 不存在');
   console.log('');
-  console.log('请先使用 browser tool 提取数据：');
-  console.log('  1. 打开产品数据页面');
-  console.log('  2. 点击vv按钮 → 点击留存标签');
-  console.log('  3. 提取留存数据');
-  console.log('  4. 或运行: node scripts/extract-retention-browser.mjs');
+  console.log('【需要浏览器提取】');
   console.log('');
-  process.exit(1);
+  console.log('执行步骤：');
+  console.log('');
+  console.log('  【步骤 1】启动浏览器');
+  console.log('    browser: action=start');
+  console.log('');
+  console.log('  【步骤 2】导航到产品数据页面');
+  console.log('    browser: action=navigate, url=https://allcmsweb-pro.vvyyds.com/#/dataCenter/productData');
+  console.log('');
+  console.log('  【步骤 3】等待加载，检查页面状态');
+  console.log('    browser: action=snapshot');
+  console.log('    - 检查是否需要登录');
+  console.log('    - 检查是否有二级密码弹窗（如有则输入：Qizige121）');
+  console.log('');
+  console.log('  【步骤 4】点击 vv 按钮');
+  console.log('    browser: action=act, kind=click, selector=button:has-text("vv")');
+  console.log('');
+  console.log('  【步骤 5】等待数据加载');
+  console.log('    browser: action=act, kind=wait, timeMs=2000');
+  console.log('');
+  console.log('  【步骤 6】点击"留存"标签');
+  console.log('    browser: action=snapshot → 找到留存卡片');
+  console.log('    browser: action=act, kind=click, ref=<留存卡片ref>');
+  console.log('');
+  console.log('  【步骤 7】等待表格加载');
+  console.log('    browser: action=act, kind=wait, timeMs=3000');
+  console.log('');
+  console.log('  【步骤 8】提取留存数据');
+  console.log('    browser: action=act, kind=evaluate');
+  console.log('    fn: 提取脚本（见 SKILL.md）');
+  console.log('');
+  console.log('  【步骤 9】保存数据');
+  console.log('    将提取结果写入: <技能目录>/raw_data.json');
+  console.log('');
+  console.log('  【步骤 10】关闭浏览器');
+  console.log('    browser: action=stop');
+  console.log('');
+  console.log('  【步骤 11】重新运行');
+  console.log('    node scripts/run-retention-diagnosis.mjs');
+  console.log('');
+  process.exit(10);
 }
 
 let rawData = JSON.parse(fs.readFileSync(rawPath, 'utf-8'));
@@ -57,12 +105,9 @@ let rawData = JSON.parse(fs.readFileSync(rawPath, 'utf-8'));
 if (rawData.newUserRetention && Array.isArray(rawData.newUserRetention)) {
   console.log('🔄 检测到嵌套格式，正在转换为扁平数组...');
   
-  // 嵌套格式 → 扁平数组
   const newRet = rawData.newUserRetention || [];
   const oldRet = rawData.oldUserRetention || [];
-  const actRet = rawData.activeUserRetention || [];
   
-  // 按日期合并
   const dateMap = {};
   
   newRet.forEach(d => {
@@ -79,24 +124,11 @@ if (rawData.newUserRetention && Array.isArray(rawData.newUserRetention)) {
     dateMap[date].oldRetain1 = d.d1 || d.retain1 || d.retention1 || 0;
   });
   
-  actRet.forEach(d => {
-    const date = d.date;
-    if (!dateMap[date]) dateMap[date] = { date };
-    dateMap[date].activeUsers = d.activeUsers || d.dau || 0;
-  });
-  
-  // 转换为数组并补全缺失字段
   const days = Object.values(dateMap).sort((a, b) => a.date.localeCompare(b.date));
   
-  // 计算缺失的新/老用户数
   days.forEach(d => {
-    if (!d.newUsers && !d.oldUsers && d.activeUsers) {
-      // 假设新用户占比约10%
-      d.newUsers = Math.round(d.activeUsers * 0.1);
-      d.oldUsers = d.activeUsers - d.newUsers;
-    }
-    if (!d.newRetain1) d.newRetain1 = 30;  // 默认值
-    if (!d.oldRetain1) d.oldRetain1 = 70;  // 默认值
+    if (!d.newRetain1) d.newRetain1 = 30;
+    if (!d.oldRetain1) d.oldRetain1 = 70;
   });
   
   rawData = { days, meta: rawData.meta || { extractedAt: new Date().toISOString() } };
@@ -106,14 +138,75 @@ if (rawData.newUserRetention && Array.isArray(rawData.newUserRetention)) {
 
 const days = rawData.days || rawData;
 if (!Array.isArray(days) || days.length === 0) {
+  console.log('');
   console.log('❌ raw_data.json 无有效留存数据');
-  console.log('   请确保数据为扁平数组格式');
-  process.exit(1);
+  console.log('');
+  console.log('【需要浏览器提取】');
+  process.exit(10);
 }
 
-console.log(`✅ 数据文件存在: ${rawPath}`);
+// 检查数据新鲜度
+const allDates = days.map(d => d.date).sort().reverse();
+const latestDate = allDates[0];
+const latestDateObj = new Date(latestDate);
+const todayObj = new Date(todayDate);
+const daysDiff = Math.floor((todayObj - latestDateObj) / (1000 * 60 * 60 * 24));
+
+console.log(`📊 数据最新日期: ${latestDate}`);
+
+// 数据过期（超过1天）
+if (!force && daysDiff > 1) {
+  console.log('');
+  console.log(`⚠️ 数据已过期（距今天 ${daysDiff} 天）`);
+  console.log('');
+  console.log('【需要浏览器提取】');
+  console.log('');
+  console.log('执行步骤：');
+  console.log('');
+  console.log('  【步骤 1】启动浏览器');
+  console.log('    browser: action=start');
+  console.log('');
+  console.log('  【步骤 2】导航到产品数据页面');
+  console.log('    browser: action=navigate, url=https://allcmsweb-pro.vvyyds.com/#/dataCenter/productData');
+  console.log('');
+  console.log('  【步骤 3】等待加载，检查页面状态');
+  console.log('    browser: action=snapshot');
+  console.log('    - 检查是否需要登录');
+  console.log('    - 检查是否有二级密码弹窗（如有则输入：Qizige121）');
+  console.log('');
+  console.log('  【步骤 4】点击 vv 按钮');
+  console.log('    browser: action=act, kind=click, selector=button:has-text("vv")');
+  console.log('');
+  console.log('  【步骤 5】等待数据加载');
+  console.log('    browser: action=act, kind=wait, timeMs=2000');
+  console.log('');
+  console.log('  【步骤 6】点击"留存"标签');
+  console.log('    browser: action=snapshot → 找到留存卡片');
+  console.log('    browser: action=act, kind=click, ref=<留存卡片ref>');
+  console.log('');
+  console.log('  【步骤 7】等待表格加载');
+  console.log('    browser: action=act, kind=wait, timeMs=3000');
+  console.log('');
+  console.log('  【步骤 8】提取留存数据');
+  console.log('    browser: action=act, kind=evaluate');
+  console.log('    fn: 提取脚本（见 SKILL.md）');
+  console.log('');
+  console.log('  【步骤 9】保存数据');
+  console.log('    将提取结果写入: <技能目录>/raw_data.json');
+  console.log('');
+  console.log('  【步骤 10】关闭浏览器');
+  console.log('    browser: action=stop');
+  console.log('');
+  console.log('  【步骤 11】重新运行');
+  console.log('    node scripts/run-retention-diagnosis.mjs');
+  console.log('');
+  console.log('或使用 --force 强制使用现有数据');
+  console.log('');
+  process.exit(10);
+}
+
+console.log(`✅ 数据新鲜度: OK`);
 console.log(`   数据天数: ${days.length}`);
-console.log(`   数据格式: ${Array.isArray(rawData.days) ? '扁平数组' : '兼容格式'}`);
 console.log('');
 
 // 步骤2：数据筛选（可选）
@@ -121,7 +214,6 @@ if (!skipFilter && days.length > 7) {
   console.log('📊 步骤2: 数据筛选（近7日）');
   runScript('filter-recent-days.mjs');
   
-  // 重新读取筛选后的数据
   rawData = JSON.parse(fs.readFileSync(rawPath, 'utf-8'));
   console.log(`   ✅ 筛选完成: ${rawData.days?.length || rawData.length || 0} 天数据`);
   console.log('');
@@ -175,7 +267,6 @@ if (results.decomposition) {
   console.log(`  • 新留存效应: ${dec.newR?.toFixed(1) || 'N/A'}pt`);
   console.log(`  • 老留存效应: ${dec.oldR?.toFixed(1) || 'N/A'}pt`);
   
-  // 找主导因素
   const effects = [
     { key: '结构', val: dec.mix },
     { key: '新留存', val: dec.newR },
@@ -189,32 +280,30 @@ if (results.decomposition) {
   }
 }
 
-// 辅助函数：运行子脚本
+process.exit(0);
+
+// 辅助函数
 function runScript(scriptName, extraArgs = []) {
   const scriptPath = path.join(__dirname, scriptName);
-  
   if (!fs.existsSync(scriptPath)) {
     console.log(`   ⚠️ 脚本不存在: ${scriptName}`);
     return false;
   }
   
-  const result = spawn('node', [scriptPath, ...extraArgs], {
-    stdio: verbose ? 'inherit' : 'pipe',
-    cwd: SKILL_DIR
-  });
-  
-  if (!verbose) {
-    let output = '';
-    result.stdout?.on('data', (data) => { output += data; });
-    result.stderr?.on('data', (data) => { output += data; });
-    
-    result.on('close', (code) => {
-      if (output) {
-        const lines = output.split('\n').filter(l => l.trim());
-        lines.forEach(l => console.log(`   ${l}`));
-      }
+  try {
+    const result = execSync(`node "${scriptPath}" ${extraArgs.join(' ')}`, {
+      encoding: 'utf-8',
+      cwd: SKILL_DIR,
+      stdio: verbose ? 'inherit' : 'pipe'
     });
+    
+    if (!verbose && result) {
+      result.split('\n').filter(l => l.trim()).forEach(l => console.log(`   ${l}`));
+    }
+    return true;
+  } catch (error) {
+    console.log(`   ❌ 脚本执行失败: ${scriptName}`);
+    if (verbose) console.log(error.message);
+    return false;
   }
-  
-  return true;
 }

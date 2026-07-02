@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "extractedAt": "2026-07-02T17:20:00.000Z",
+    "method": "browser-tool",
+    "platform": "vv",
+    "status": "success"
+  },
+  "summary": {
+    "dau": 16496,
+    "lastWeek": 15647,
+    "changeRate": 1.67,
+    "direction": "up",
+    "voiceArea": 11125,
+    "videoArea": 4356
+  },
+  "activeComposition": [
+    { "date": "2026-07-02", "dau": 11861, "android": 65.91, "ios": 27.99, "vvPlanet": 93.6, "voicePC": 3.98, "videoPC": 2.12 },
+    { "date": "2026-07-01", "dau": 16496, "android": 67.44, "ios": 26.41, "vvPlanet": 93.56, "voicePC": 4.18, "videoPC": 1.98 },
+    { "date": "2026-06-30", "dau": 15862, "android": 67.61, "ios": 26.26, "vvPlanet": 93.51, "voicePC": 4.39, "videoPC": 1.75 },
+    { "date": "2026-06-29", "dau": 15366, "android": 67.27, "ios": 26.43, "vvPlanet": 93.39, "voicePC": 4.39, "videoPC": 1.91 },
+    { "date": "2026-06-28", "dau": 14741, "android": 68.86, "ios": 25.97, "vvPlanet": 94.51, "voicePC": 3.9, "videoPC": 1.28 },
+    { "date": "2026-06-27", "dau": 16055, "android": 68.73, "ios": 25.31, "vvPlanet": 93.77, "voicePC": 4.19, "videoPC": 1.78 },
+    { "date": "2026-06-26", "dau": 15708, "android": 67.72, "ios": 26.2, "vvPlanet": 93.67, "voicePC": 4.16, "videoPC": 1.92 },
+    { "date": "2026-06-25", "dau": 15681, "android": 67.17, "ios": 26.41, "vvPlanet": 93.28, "voicePC": 4.34, "videoPC": 2.08 }
+  ],
+  "areaActive": [
+    { "date": "2026-07-01", "dau": 16496, "voiceArea": 64.51, "videoArea": 35.55, "voiceEnter": 10625, "voiceBroadcast": 6664, "videoEnter": 5864, "videoBroadcast": 262 },
+    { "date": "2026-06-30", "dau": 15862, "voiceArea": 64.4, "videoArea": 33.15, "voiceEnter": 10196, "voiceBroadcast": 6342, "videoEnter": 5258, "videoBroadcast": 191 },
+    { "date": "2026-06-29", "dau": 15366, "voiceArea": 64.52, "videoArea": 32.57, "voiceEnter": 9898, "voiceBroadcast": 6265, "videoEnter": 5005, "videoBroadcast": 201 },
+    { "date": "2026-06-28", "dau": 14741, "voiceArea": 65.45, "videoArea": 31.04, "voiceEnter": 9628, "voiceBroadcast": 6264, "videoEnter": 4575, "videoBroadcast": 179 }
+  ],
+  "cards": {
+    "active": { "value": 16496, "lastWeek": 15647, "changeRate": 1.67, "direction": "up" },
+    "newUsers": { "value": 1556, "yesterday": 1695, "changeRate": -8.2, "direction": "down" },
+    "revenue": { "value": 1776042.36, "yesterday": 1415788.08, "changeRate": 25.45, "direction": "up" },
+    "retention": { "value": 27.26, "yesterday": 28.93, "changeRate": -5.77, "direction": "down" }
+  }
+}

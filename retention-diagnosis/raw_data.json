@@ -1,58 +1,73 @@
 {
   "meta": {
-    "extractedAt": "2026-06-24T10:55:00.000Z",
+    "extractedAt": "2026-07-02T17:32:00.000Z",
     "method": "browser-tool",
+    "platform": "vv",
     "status": "success"
   },
   "days": [
     {
-      "date": "2026-06-23",
-      "newUsers": 1592,
-      "oldUsers": 14335,
+      "date": "2026-07-01",
+      "newUsers": 1556,
+      "oldUsers": 14994,
+      "activeUsers": 16496,
       "newRetain1": 0,
-      "oldRetain1": 0
+      "oldRetain1": 0,
+      "activeRetain1": 0
     },
     {
-      "date": "2026-06-22",
-      "newUsers": 1408,
-      "oldUsers": 14295,
-      "newRetain1": 33.03,
-      "oldRetain1": 71.69
+      "date": "2026-06-30",
+      "newUsers": 1695,
+      "oldUsers": 14217,
+      "activeUsers": 15862,
+      "newRetain1": 27.26,
+      "oldRetain1": 71.7,
+      "activeRetain1": 67.02
     },
     {
-      "date": "2026-06-21",
-      "newUsers": 1294,
-      "oldUsers": 13936,
-      "newRetain1": 33.08,
-      "oldRetain1": 70.66
+      "date": "2026-06-29",
+      "newUsers": 1407,
+      "oldUsers": 14008,
+      "activeUsers": 15366,
+      "newRetain1": 28.93,
+      "oldRetain1": 71.2,
+      "activeRetain1": 67.38
     },
     {
-      "date": "2026-06-20",
-      "newUsers": 875,
-      "oldUsers": 13718,
-      "newRetain1": 30.51,
-      "oldRetain1": 70.54
+      "date": "2026-06-28",
+      "newUsers": 1045,
+      "oldUsers": 13736,
+      "activeUsers": 14741,
+      "newRetain1": 22.78,
+      "oldRetain1": 69.87,
+      "activeRetain1": 66.58
     },
     {
-      "date": "2026-06-19",
-      "newUsers": 1191,
-      "oldUsers": 14068,
-      "newRetain1": 22.17,
-      "oldRetain1": 69.2
+      "date": "2026-06-27",
+      "newUsers": 1781,
+      "oldUsers": 14323,
+      "activeUsers": 16055,
+      "newRetain1": 26.84,
+      "oldRetain1": 68.21,
+      "activeRetain1": 63.64
     },
     {
-      "date": "2026-06-18",
-      "newUsers": 1705,
-      "oldUsers": 14805,
-      "newRetain1": 25.63,
-      "oldRetain1": 66.38
+      "date": "2026-06-26",
+      "newUsers": 1541,
+      "oldUsers": 14222,
+      "activeUsers": 15708,
+      "newRetain1": 28.1,
+      "oldRetain1": 70.53,
+      "activeRetain1": 66.39
     },
     {
-      "date": "2026-06-17",
-      "newUsers": 2293,
-      "oldUsers": 14742,
-      "newRetain1": 21.11,
-      "oldRetain1": 69.84
+      "date": "2026-06-25",
+      "newUsers": 1482,
+      "oldUsers": 14236,
+      "activeUsers": 15681,
+      "newRetain1": 25.71,
+      "oldRetain1": 71,
+      "activeRetain1": 66.75
     }
   ]
 }

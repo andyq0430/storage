@@ -1,143 +1,142 @@
 {
   "meta": {
-    "extractedAt": "2026-06-24T10:15:00.000Z",
-    "method": "browser-tool",
-    "status": "success"
+    "extractedAt": "2026-07-02T17:38:00+08:00",
+    "method": "browser-tool"
   },
   "ltvData": [
     {
-      "date": "2026-06-23",
-      "newUsers": 1592,
+      "date": "2026-07-01",
+      "newUsers": 1556,
+      "ltv1": 14.03,
+      "ltv3": 14.03,
+      "ltv7": 14.03,
+      "ltv15": 14.03,
+      "ltv30": 14.03,
+      "ltv60": 14.03
+    },
+    {
+      "date": "2026-06-30",
+      "newUsers": 1695,
+      "ltv1": 18.04,
+      "ltv3": 22.71,
+      "ltv7": 22.71,
+      "ltv15": 22.71,
+      "ltv30": 22.71,
+      "ltv60": 22.71
+    },
+    {
+      "date": "2026-06-29",
+      "newUsers": 1407,
       "ltv1": 19.17,
-      "ltv3": 19.17,
-      "ltv7": 19.17,
-      "ltv15": 19.17,
-      "ltv30": 19.17,
-      "ltv60": 19.17
+      "ltv3": 23.84,
+      "ltv7": 23.84,
+      "ltv15": 23.84,
+      "ltv30": 23.84,
+      "ltv60": 23.84
     },
     {
-      "date": "2026-06-22",
-      "newUsers": 1408,
+      "date": "2026-06-28",
+      "newUsers": 1045,
       "ltv1": 16.85,
-      "ltv3": 23.25,
-      "ltv7": 23.25,
-      "ltv15": 23.25,
-      "ltv30": 23.25,
-      "ltv60": 23.25
+      "ltv3": 30.33,
+      "ltv7": 33.74,
+      "ltv15": 33.74,
+      "ltv30": 33.74,
+      "ltv60": 33.74
     },
     {
-      "date": "2026-06-21",
-      "newUsers": 1294,
+      "date": "2026-06-27",
+      "newUsers": 1781,
       "ltv1": 23.75,
       "ltv3": 29.46,
-      "ltv7": 29.46,
-      "ltv15": 29.46,
-      "ltv30": 29.46,
-      "ltv60": 29.46
+      "ltv7": 37.6,
+      "ltv15": 37.6,
+      "ltv30": 37.6,
+      "ltv60": 37.6
     },
     {
-      "date": "2026-06-20",
-      "newUsers": 875,
+      "date": "2026-06-26",
+      "newUsers": 1541,
       "ltv1": 9.66,
       "ltv3": 14.79,
-      "ltv7": 15.09,
-      "ltv15": 15.09,
-      "ltv30": 15.09,
-      "ltv60": 15.09
+      "ltv7": 17.34,
+      "ltv15": 17.34,
+      "ltv30": 17.34,
+      "ltv60": 17.34
     },
     {
-      "date": "2026-06-19",
-      "newUsers": 1191,
+      "date": "2026-06-25",
+      "newUsers": 1482,
       "ltv1": 71.56,
       "ltv3": 73.69,
-      "ltv7": 73.93,
-      "ltv15": 73.93,
-      "ltv30": 73.93,
-      "ltv60": 73.93
-    },
-    {
-      "date": "2026-06-18",
-      "newUsers": 1705,
-      "ltv1": 38.07,
-      "ltv3": 43.79,
-      "ltv7": 46.22,
-      "ltv15": 46.22,
-      "ltv30": 46.22,
-      "ltv60": 46.22
-    },
-    {
-      "date": "2026-06-17",
-      "newUsers": 2293,
-      "ltv1": 39.84,
-      "ltv3": 42.27,
-      "ltv7": 42.52,
-      "ltv15": 42.52,
-      "ltv30": 42.52,
-      "ltv60": 42.52
+      "ltv7": 74.07,
+      "ltv15": 74.07,
+      "ltv30": 74.07,
+      "ltv60": 74.07
     }
   ],
   "qualityData": [
     {
-      "date": "2026-06-23",
+      "date": "2026-07-01",
       "channel": "全部",
-      "newUsers": 1592,
-      "payRateD0": 13.57,
-      "payAmountD0": 30516.34,
-      "payAmountD7": 698773.75
+      "newUsers": 1556,
+      "payRateD0": 12.89,
+      "payAmountD0": 20797.44,
+      "payAmountD7": 720992.47
     },
     {
-      "date": "2026-06-22",
+      "date": "2026-06-30",
       "channel": "全部",
-      "newUsers": 1408,
-      "payRateD0": 15.98,
-      "payAmountD0": 23725.32,
-      "payAmountD7": 702699.84
+      "newUsers": 1695,
+      "payRateD0": 14.91,
+      "payAmountD0": 27225.02,
+      "payAmountD7": 768518.26
     },
     {
-      "date": "2026-06-21",
+      "date": "2026-06-29",
       "channel": "全部",
-      "newUsers": 1294,
-      "payRateD0": 13.14,
-      "payAmountD0": 30733.9,
-      "payAmountD7": 749000.68
+      "newUsers": 1407,
+      "payRateD0": 13.56,
+      "payAmountD0": 30516.69,
+      "payAmountD7": 97773.26
     },
     {
-      "date": "2026-06-20",
+      "date": "2026-06-28",
       "channel": "全部",
-      "newUsers": 875,
-      "payRateD0": 14.17,
-      "payAmountD0": 8449.38,
-      "payAmountD7": 742989.85
+      "newUsers": 1045,
+      "payRateD0": 10.98,
+      "payAmountD0": 25249.9,
+      "payAmountD7": 682931.64
     },
     {
-      "date": "2026-06-19",
+      "date": "2026-06-27",
       "channel": "全部",
-      "newUsers": 1191,
+      "newUsers": 1781,
+      "payRateD0": 12.75,
+      "payAmountD0": 23598.5,
+      "payAmountD7": 662798.09
+    },
+    {
+      "date": "2026-06-26",
+      "channel": "全部",
+      "newUsers": 1541,
+      "payRateD0": 7.86,
+      "payAmountD0": 8449,
+      "payAmountD7": 2989
+    },
+    {
+      "date": "2026-06-25",
+      "channel": "全部",
+      "newUsers": 1482,
       "payRateD0": 19.56,
       "payAmountD0": 85223.22,
       "payAmountD7": 792510.5
-    },
-    {
-      "date": "2026-06-18",
-      "channel": "全部",
-      "newUsers": 1705,
-      "payRateD0": 20.53,
-      "payAmountD0": 64912.44,
-      "payAmountD7": 870003.89
-    },
-    {
-      "date": "2026-06-17",
-      "channel": "全部",
-      "newUsers": 2293,
-      "payRateD0": 20.37,
-      "payAmountD0": 91356.18,
-      "payAmountD7": 965806.63
     }
   ],
   "dateRange": {
-    "start": "2026-06-17",
-    "end": "2026-06-23",
-    "description": "自动提取近7日数据（以2026-06-23为准）",
+    "start": "2026-06-25",
+    "end": "2026-07-01",
+    "description": "自动提取近7日数据（以2026-07-01为准）",
     "totalRawLtv": 7,
     "totalRawQuality": 7,
     "filteredLtv": 7,

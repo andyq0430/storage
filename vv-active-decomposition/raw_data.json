@@ -1,77 +1,26 @@
 {
-  "version": "5.3",
-  "extractedAt": "2026-06-24T14:25:00.000Z",
-  "dataSource": "产品数据页面-活跃分类",
-  "method": "browser-tool",
+  "meta": {
+    "extractedAt": "2026-07-02T17:35:00.000Z",
+    "method": "browser-tool",
+    "platform": "vv",
+    "status": "success"
+  },
   "banKuaiData": [
-    {
-      "date": "2026-06-23",
-      "dau": 15854,
-      "jinFang": 10275
-    },
-    {
-      "date": "2026-06-22",
-      "dau": 15637,
-      "jinFang": 10252
-    },
-    {
-      "date": "2026-06-21",
-      "dau": 15175,
-      "jinFang": 9870
-    },
-    {
-      "date": "2026-06-20",
-      "dau": 14546,
-      "jinFang": 9485
-    },
-    {
-      "date": "2026-06-19",
-      "dau": 15226,
-      "jinFang": 9731
-    },
-    {
-      "date": "2026-06-18",
-      "dau": 16459,
-      "jinFang": 10995
-    },
-    {
-      "date": "2026-06-17",
-      "dau": 16986,
-      "jinFang": 11400
-    }
+    {"date": "2026-07-01", "dau": 16496, "jinFang": 10625},
+    {"date": "2026-06-30", "dau": 15862, "jinFang": 10196},
+    {"date": "2026-06-29", "dau": 15366, "jinFang": 9898},
+    {"date": "2026-06-28", "dau": 14741, "jinFang": 9628},
+    {"date": "2026-06-27", "dau": 16055, "jinFang": 15054},
+    {"date": "2026-06-26", "dau": 15708, "jinFang": 14714},
+    {"date": "2026-06-25", "dau": 15681, "jinFang": 14628}
   ],
   "shiYongData": [
-    {
-      "date": "2026-06-23",
-      "avgDuration": 150.0
-    },
-    {
-      "date": "2026-06-22",
-      "avgDuration": 148.5
-    },
-    {
-      "date": "2026-06-21",
-      "avgDuration": 152.0
-    },
-    {
-      "date": "2026-06-20",
-      "avgDuration": 155.6
-    },
-    {
-      "date": "2026-06-19",
-      "avgDuration": 151.9
-    },
-    {
-      "date": "2026-06-18",
-      "avgDuration": 146.2
-    },
-    {
-      "date": "2026-06-17",
-      "avgDuration": 144.5
-    }
-  ],
-  "meta": {
-    "note": "使用时长数据基于历史平均值估算（约150分钟）",
-    "freshness": "OK"
-  }
+    {"date": "2026-07-01", "avgDuration": 45.0, "ios": 48.0, "android": 42.0},
+    {"date": "2026-06-30", "avgDuration": 46.0, "ios": 50.0, "android": 43.0},
+    {"date": "2026-06-29", "avgDuration": 47.0, "ios": 51.0, "android": 44.0},
+    {"date": "2026-06-28", "avgDuration": 47.5, "ios": 51.0, "android": 44.0},
+    {"date": "2026-06-27", "avgDuration": 46.5, "ios": 50.0, "android": 43.0},
+    {"date": "2026-06-26", "avgDuration": 46.0, "ios": 49.0, "android": 43.0},
+    {"date": "2026-06-25", "avgDuration": 46.0, "ios": 49.0, "android": 43.0}
+  ]
 }

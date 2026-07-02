@@ -1,73 +1,73 @@
 {
   "meta": {
-    "stamp": "2026-06-24T06:50:24.905Z",
+    "stamp": "2026-07-02T09:35:04.124Z",
     "source": "vv/活跃",
-    "period": "2026-06-17 ~ 2026-06-23"
+    "period": "2026-06-25 ~ 2026-07-01"
   },
   "periodA": {
-    "date": "2026-06-17",
-    "dau": 16986,
-    "jinFang": 11400,
-    "renJunShiChang": 144.5,
-    "totalShiChang": 1647300
+    "date": "2026-06-25",
+    "dau": 15681,
+    "jinFang": 14628,
+    "renJunShiChang": 46,
+    "totalShiChang": 672888
   },
   "periodB": {
-    "date": "2026-06-23",
-    "dau": 15854,
-    "jinFang": 10275,
-    "renJunShiChang": 150,
-    "totalShiChang": 1541250
+    "date": "2026-07-01",
+    "dau": 16496,
+    "jinFang": 10625,
+    "renJunShiChang": 45,
+    "totalShiChang": 478125
   },
   "decomposition": {
-    "deltaT": -106050,
-    "deltaPct": -6.437807321070843,
-    "guiMoEffect": -165583.42998833465,
-    "guiMoPct": 156.13713341662861,
-    "qiangDuEffect": 59533.42998833342,
-    "qiangDuPct": 56.137133416627464
+    "deltaT": -194763,
+    "deltaPct": -28.944341405999214,
+    "guiMoEffect": -182235.6544517872,
+    "guiMoPct": 93.56790275965517,
+    "qiangDuEffect": -12527.34554821244,
+    "qiangDuPct": 6.432097240344644
   },
   "dailyData": [
     {
-      "date": "2026-06-17",
-      "dau": 16986,
-      "jinFang": 11400,
-      "renJunShiChang": 144.5
+      "date": "2026-06-25",
+      "dau": 15681,
+      "jinFang": 14628,
+      "renJunShiChang": 46
     },
     {
-      "date": "2026-06-18",
-      "dau": 16459,
-      "jinFang": 10995,
-      "renJunShiChang": 146.2
+      "date": "2026-06-26",
+      "dau": 15708,
+      "jinFang": 14714,
+      "renJunShiChang": 46
     },
     {
-      "date": "2026-06-19",
-      "dau": 15226,
-      "jinFang": 9731,
-      "renJunShiChang": 151.9
+      "date": "2026-06-27",
+      "dau": 16055,
+      "jinFang": 15054,
+      "renJunShiChang": 46.5
     },
     {
-      "date": "2026-06-20",
-      "dau": 14546,
-      "jinFang": 9485,
-      "renJunShiChang": 155.6
+      "date": "2026-06-28",
+      "dau": 14741,
+      "jinFang": 9628,
+      "renJunShiChang": 47.5
     },
     {
-      "date": "2026-06-21",
-      "dau": 15175,
-      "jinFang": 9870,
-      "renJunShiChang": 152
+      "date": "2026-06-29",
+      "dau": 15366,
+      "jinFang": 9898,
+      "renJunShiChang": 47
     },
     {
-      "date": "2026-06-22",
-      "dau": 15637,
-      "jinFang": 10252,
-      "renJunShiChang": 148.5
+      "date": "2026-06-30",
+      "dau": 15862,
+      "jinFang": 10196,
+      "renJunShiChang": 46
     },
     {
-      "date": "2026-06-23",
-      "dau": 15854,
-      "jinFang": 10275,
-      "renJunShiChang": 150
+      "date": "2026-07-01",
+      "dau": 16496,
+      "jinFang": 10625,
+      "renJunShiChang": 45
     }
   ]
 }
